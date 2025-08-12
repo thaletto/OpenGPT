@@ -1,47 +1,54 @@
-'use client'
+"use client";
 
-import type { ChatUIMessage } from '@/components/chat/types'
-import { DEFAULT_MODEL, TEST_PROMPTS } from '@/ai/constants'
-import { LoaderCircle, MessageCircleIcon, SendIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Message } from '@/components/chat/message'
-import { ModelSelector } from '@/components/model-selector/model-selector'
-import { MoonLoader } from 'react-spinners'
-import { Panel, PanelHeader } from '@/components/panels/panels'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { toast } from 'sonner'
-import { mutate } from 'swr'
-import { useChat } from '@ai-sdk/react'
-import { useEffect, useRef, useState } from 'react'
+import type { ChatUIMessage } from "@/components/chat/types";
+import { DEFAULT_MODEL, TEST_PROMPTS } from "@/ai/constants";
+import { LoaderCircle, MessageCircleIcon, SendIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Message } from "@/components/chat/message";
+import { ModelSelector } from "@/components/model-selector/model-selector";
+import { Panel, PanelHeader } from "@/components/panels/panels";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { toast } from "sonner";
+import { mutate } from "swr";
+import { useChat } from "@ai-sdk/react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
-  className: string
-  modelId?: string
+  className: string;
+  modelId?: string;
 }
 
 export function Chat({ className }: Props) {
-  const [modelId, setModelId] = useState(DEFAULT_MODEL)
-  const [input, setInput] = useState('');
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { messages, sendMessage, status } = useChat<ChatUIMessage>({
-    onToolCall: () => mutate('/api/auth/info'),
-    onError: (error) => {
-      toast.error(`Communication error with the AI: ${error.message}`)
-      console.error('Error sending message:', error)
-    },
-  })
+  const [modelId, setModelId] = useState(DEFAULT_MODEL);
+  const [input, setInput] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { messages, sendMessage, setMessages, status } = useChat<ChatUIMessage>(
+    {
+      onToolCall: () => mutate("/api/auth/info"),
+      onError: (error) => {
+        toast.error(`Communication error with the AI: ${error.message}`);
+        console.error("Error sending message:", error);
+      },
+    }
+  );
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const validateAndSubmitMessage = (text: string) => {
     if (text.trim()) {
-      sendMessage({ text }, { body: { modelId } })
-      setInput('')
+      sendMessage({ text }, { body: { modelId } });
+      setInput("");
     }
-  }
+  };
+
+  useEffect(() => {
+    const onNewChat = () => setMessages([]);
+    window.addEventListener("new-chat", onNewChat);
+    return () => window.removeEventListener("new-chat", onNewChat);
+  }, [setMessages]);
 
   return (
     <Panel className={className}>
@@ -89,31 +96,31 @@ export function Chat({ className }: Props) {
       <form
         className="flex space-x-1 p-2 border-t border-primary/18 bg-background items-center"
         onSubmit={async (event) => {
-          event.preventDefault()
-          validateAndSubmitMessage(input)
+          event.preventDefault();
+          validateAndSubmitMessage(input);
         }}
       >
         <ModelSelector
           modelId={modelId}
           onModelChange={(newModelId: string) => {
-            setModelId(newModelId)
+            setModelId(newModelId);
           }}
         />
         <Input
           className="w-full text-sm border-0 bg-background font-mono rounded-sm"
-          disabled={status === 'streaming' || status === 'submitted'}
+          disabled={status === "streaming" || status === "submitted"}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."
           value={input}
         />
-        <Button type="submit" disabled={status !== 'ready' || !input.trim()}>
-          {status === 'streaming' || status === 'submitted' ? (
-            <LoaderCircle className='animate-spin' size={16} />
+        <Button type="submit" disabled={status !== "ready" || !input.trim()}>
+          {status === "streaming" || status === "submitted" ? (
+            <LoaderCircle className="animate-spin" size={16} />
           ) : (
             <SendIcon className="w-4 h-4" />
           )}
         </Button>
       </form>
     </Panel>
-  )
+  );
 }
