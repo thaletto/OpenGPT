@@ -1,3 +1,4 @@
+import { getSupportedModels } from '@/functions/models'
 import { useState, useEffect, useCallback } from 'react'
 
 interface DisplayModel {
@@ -22,11 +23,7 @@ export function useAvailableModels() {
       }
 
       try {
-        const response = await fetch('/api/models')
-        if (!response.ok) {
-          throw new Error('Failed to fetch models')
-        }
-        const data = await response.json()
+        const data = await getSupportedModels();
         const newModels = data.models.map(
           (model: { id: string; name: string }) => ({
             id: model.id,
