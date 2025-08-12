@@ -14,7 +14,6 @@ import { createParser, useQueryState } from 'nuqs'
 import { toast } from 'sonner'
 import { mutate } from 'swr'
 import { useChat } from '@ai-sdk/react'
-import { useDataStateMapper } from './state'
 import { useLocalStorageValue } from '@/lib/use-local-storage-value'
 import { useEffect, useRef } from 'react'
 
@@ -26,11 +25,9 @@ interface Props {
 export function Chat({ className }: Props) {
   const [modelId, setModelId] = useQueryState('modelId', modelParser)
   const [input, setInput] = useLocalStorageValue('prompt-input')
-  const mapDataToState = useDataStateMapper()
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { messages, sendMessage, status } = useChat<ChatUIMessage>({
     onToolCall: () => mutate('/api/auth/info'),
-    onData: mapDataToState,
     onError: (error) => {
       toast.error(`Communication error with the AI: ${error.message}`)
       console.error('Error sending message:', error)
