@@ -14,8 +14,7 @@ import { createParser, useQueryState } from 'nuqs'
 import { toast } from 'sonner'
 import { mutate } from 'swr'
 import { useChat } from '@ai-sdk/react'
-import { useLocalStorageValue } from '@/lib/use-local-storage-value'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface Props {
   className: string
@@ -24,7 +23,7 @@ interface Props {
 
 export function Chat({ className }: Props) {
   const [modelId, setModelId] = useQueryState('modelId', modelParser)
-  const [input, setInput] = useLocalStorageValue('prompt-input')
+  const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { messages, sendMessage, status } = useChat<ChatUIMessage>({
     onToolCall: () => mutate('/api/auth/info'),
