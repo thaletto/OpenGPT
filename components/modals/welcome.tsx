@@ -57,10 +57,6 @@ export function Welcome(props: {
             </p>
             <p className="text-base text-secondary-foreground">
               It uses Vercel&quot;s AI Cloud services like{' '}
-              <ExternalLink href="https://vercel.com/docs/vercel-sandbox">
-                Sandbox
-              </ExternalLink>{' '}
-              for secure code execution,{' '}
               <ExternalLink href="https://vercel.com/docs/ai-gateway">
                 AI Gateway
               </ExternalLink>{' '}
