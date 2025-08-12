@@ -4,8 +4,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Vercel Vibe Coding Agent',
-  description: '',
+  title: 'MathGPT',
+  description: 'ChatGPT with graphical user interface',
 }
 
 export default function RootLayout({
