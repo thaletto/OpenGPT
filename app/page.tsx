@@ -1,4 +1,4 @@
-import { Chat } from './chat'
+import { Chat } from '../components/chat/chat'
 import { Header } from './header'
 import { TabItem, TabContent, TabGroup } from '@/components/tabs'
 import { Welcome } from '@/components/modals/welcome'

@@ -33,7 +33,6 @@ export const ModelSelector = memo(function ModelSelector({
   const MAX_RETRIES = 3;
   const RETRY_DELAY_MILLIS = 5000;
 
-  // Keep local state in sync if parent-controlled value changes (e.g., URL param)
   useEffect(() => {
     setSelectedModelId(modelId);
   }, [modelId]);

@@ -1,7 +1,7 @@
 'use client'
 
 import type { ChatUIMessage } from '@/components/chat/types'
-import { DEFAULT_MODEL, TEST_PROMPTS, SUPPORTED_MODELS } from '@/ai/constants'
+import { DEFAULT_MODEL, TEST_PROMPTS } from '@/ai/constants'
 import { MessageCircleIcon, SendIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
