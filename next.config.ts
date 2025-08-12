@@ -17,19 +17,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'vercel.com',
-        port: '',
-        pathname: '/api/www/avatar/**',
-      },
-    ],
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
 }
 
 export default withBotId(nextConfig)
