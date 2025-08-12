@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function Chat({ className }: Props) {
-  const [modelId, setModelId] = useQueryState('modelId', modelParser)
+  const [modelId, setModelId] = useState(DEFAULT_MODEL)
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { messages, sendMessage, status } = useChat<ChatUIMessage>({
