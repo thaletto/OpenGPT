@@ -2,9 +2,7 @@ import type { JSONValue } from 'ai'
 import type { OpenAIResponsesProviderOptions } from '@ai-sdk/openai'
 import { createGatewayProvider, type GatewayModelId } from '@ai-sdk/gateway'
 
-const gateway = createGatewayProvider({
-  baseURL: process.env.AI_GATEWAY_BASE_URL,
-})
+const gateway = createGatewayProvider()
 
 interface AvailableModel {
   id: GatewayModelId | 'openai/gpt-5'
