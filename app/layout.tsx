@@ -1,5 +1,4 @@
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import { SandboxState } from '@/components/modals/sandbox-state'
 import { Toaster } from '@/components/ui/sonner'
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
@@ -18,7 +17,6 @@ export default function RootLayout({
       <body className="antialiased">
         <NuqsAdapter>{children}</NuqsAdapter>
         <Toaster />
-        <SandboxState />
       </body>
     </html>
   )

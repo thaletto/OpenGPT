@@ -1,10 +1,5 @@
 import type { InferUITools, UIMessage, UIMessageStreamWriter } from 'ai'
 import type { DataPart } from '../messages/data-parts'
-import { createSandbox } from './create-sandbox'
-import { generateFiles } from './generate-files'
-import { getSandboxURL } from './get-sandbox-url'
-import { runCommand } from './run-command'
-import { waitCommand } from './wait-command'
 
 interface Params {
   modelId: string
@@ -13,11 +8,7 @@ interface Params {
 
 export function tools({ modelId, writer }: Params) {
   return {
-    createSandbox: createSandbox({ writer }),
-    generateFiles: generateFiles({ writer, modelId }),
-    getSandboxURL: getSandboxURL({ writer }),
-    runCommand: runCommand({ writer }),
-    waitCommand: waitCommand({ writer }),
+    // All sandbox-related tools have been removed
   }
 }
 
