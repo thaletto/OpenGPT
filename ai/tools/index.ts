@@ -1,9 +1,8 @@
 import type { InferUITools, UIMessage, UIMessageStreamWriter } from 'ai'
-import type { DataPart } from '../messages/data-parts'
 
 interface Params {
   modelId: string
-  writer: UIMessageStreamWriter<UIMessage<never, DataPart>>
+  writer: UIMessageStreamWriter<UIMessage<never>>
 }
 
 export function tools({ modelId, writer }: Params) {
