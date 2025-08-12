@@ -10,7 +10,6 @@ import { ModelSelector } from '@/components/model-selector/model-selector'
 import { MoonLoader } from 'react-spinners'
 import { Panel, PanelHeader } from '@/components/panels/panels'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { createParser, useQueryState } from 'nuqs'
 import { toast } from 'sonner'
 import { mutate } from 'swr'
 import { useChat } from '@ai-sdk/react'
@@ -118,8 +117,3 @@ export function Chat({ className }: Props) {
     </Panel>
   )
 }
-
-const modelParser = createParser({
-  parse: (value) => (SUPPORTED_MODELS.includes(value) ? value : DEFAULT_MODEL),
-  serialize: (value) => value,
-}).withDefault(DEFAULT_MODEL)

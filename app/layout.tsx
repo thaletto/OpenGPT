@@ -1,4 +1,3 @@
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
@@ -15,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <NuqsAdapter>{children}</NuqsAdapter>
+        {children}
         <Toaster />
       </body>
     </html>
