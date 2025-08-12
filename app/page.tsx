@@ -3,7 +3,7 @@ import { Header } from './header'
 import { TabItem, TabContent, TabGroup } from '@/components/tabs'
 import { Welcome } from '@/components/modals/welcome'
 import { cookies } from 'next/headers'
-import { hideBanner } from '@/app/actions'
+import { hideBanner } from '@/functions/actions'
 
 export default async function Page() {
   const store = await cookies()
