@@ -2,7 +2,7 @@
 
 import type { ChatUIMessage } from '@/components/chat/types'
 import { DEFAULT_MODEL, TEST_PROMPTS } from '@/ai/constants'
-import { MessageCircleIcon, SendIcon } from 'lucide-react'
+import { LoaderCircle, MessageCircleIcon, SendIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Message } from '@/components/chat/message'
@@ -108,7 +108,7 @@ export function Chat({ className }: Props) {
         />
         <Button type="submit" disabled={status !== 'ready' || !input.trim()}>
           {status === 'streaming' || status === 'submitted' ? (
-            <MoonLoader color="currentColor" size={16} />
+            <LoaderCircle className='animate-spin' size={16} />
           ) : (
             <SendIcon className="w-4 h-4" />
           )}
