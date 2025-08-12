@@ -1,8 +1,6 @@
 import { Chat } from './chat'
-import { FileExplorer } from './file-explorer'
 import { Header } from './header'
 import { Logs } from './logs'
-import { Preview } from './preview'
 import { TabItem, TabContent, TabGroup } from '@/components/tabs'
 import { Welcome } from '@/components/modals/welcome'
 import { cookies } from 'next/headers'
@@ -30,13 +28,7 @@ export default async function Page() {
             <Chat className="flex-1 overflow-hidden" />
           </TabContent>
           <TabGroup tabId="chat">
-            <TabContent className="lg:h-1/3" tabId="preview">
-              <Preview className="flex-1 overflow-hidden" />
-            </TabContent>
-            <TabContent className="lg:h-1/3" tabId="file-explorer">
-              <FileExplorer className="flex-1 overflow-hidden" />
-            </TabContent>
-            <TabContent className="lg:h-1/3" tabId="logs">
+            <TabContent className="lg:h-full" tabId="logs">
               <Logs className="flex-1 overflow-hidden" />
             </TabContent>
           </TabGroup>
