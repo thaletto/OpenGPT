@@ -14,15 +14,6 @@ import {
 } from "@/components/ui/sidebar";
 import { VercelDashed } from "../icons/vercel-dashed";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "Laxman K R",
-    email: "krlaxman03@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();
   return (
@@ -52,7 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
