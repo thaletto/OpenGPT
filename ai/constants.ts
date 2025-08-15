@@ -14,6 +14,6 @@ export const SUPPORTED_MODELS: GatewayModelId[] = [
 ]
 
 export const TEST_PROMPTS = [
-  'Generate a Next.js app that allows to list and search Pokemons',
-  'Create a `golang` server that responds with "Hello World" to any request',
+  'Create a bar chart of top 5 most populated countries',
+  `Create a line chart of Ronaldo's goals in last 8 matches`,
 ]

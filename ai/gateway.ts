@@ -1,65 +1,52 @@
-import type { JSONValue } from 'ai'
-import type { OpenAIResponsesProviderOptions } from '@ai-sdk/openai'
-import { createGatewayProvider, type GatewayModelId } from '@ai-sdk/gateway'
+import type { OpenAIResponsesProviderOptions } from "@ai-sdk/openai";
+import type { GoogleGenerativeAIProviderOptions } from "@ai-sdk/google";
+import type { AnthropicProviderOptions } from "@ai-sdk/anthropic";
+import { createGatewayProvider, type GatewayModelId } from "@ai-sdk/gateway";
+import type { LanguageModel } from "ai";
 
-const gateway = createGatewayProvider()
+const gateway = createGatewayProvider();
 
 interface AvailableModel {
-  id: GatewayModelId | 'openai/gpt-5'
-  name: string
+  id: GatewayModelId | "openai/gpt-5";
+  name: string;
 }
 
 export async function getAvailableModels(): Promise<AvailableModel[]> {
-  const response = await gateway.getAvailableModels()
-  return [...response.models.map(({ id, name }) => ({ id, name }))]
+  const response = await gateway.getAvailableModels();
+  return [...response.models.map(({ id, name }) => ({ id, name }))];
 }
 
 interface ModelOptions {
-  model: string
-  providerOptions?: Record<string, Record<string, JSONValue>>
-  headers?: Record<string, string>
+  model: LanguageModel;
+  headers?: Record<string, string>;
+  openAIProviderOptions?: OpenAIResponsesProviderOptions;
+  googleProviderOptions?: GoogleGenerativeAIProviderOptions;
+  anthropicProviderOptions?: AnthropicProviderOptions;
 }
 
 export function getModelOptions(modelId: string): ModelOptions {
-  if (modelId === 'openai/o4-mini') {
+  if (modelId === "openai/o4-mini") {
     return {
       model: modelId,
-      providerOptions: {
-        openai: {
-          reasoningEffort: 'low',
-          reasoningSummary: 'detailed',
-        } satisfies OpenAIResponsesProviderOptions,
+      openAIProviderOptions: {
+        reasoningEffort: "low",
+        reasoningSummary: "detailed",
       },
-    }
+    };
   }
 
-  if (modelId === 'openai/gpt-5') {
+  if (modelId === "openai/gpt-5") {
     return {
       model: modelId,
-      providerOptions: {
-        openai: {
-          include: ['reasoning.encrypted_content'],
-          reasoningEffort: 'low',
-          reasoningSummary: 'detailed',
-        } satisfies OpenAIResponsesProviderOptions,
+      openAIProviderOptions: {
+        include: ["reasoning.encrypted_content"],
+        reasoningEffort: "low",
+        reasoningSummary: "detailed",
       },
-    }
-  }
-
-  if (modelId === 'anthropic/claude-4-sonnet') {
-    return {
-      model: modelId,
-      headers: { 'anthropic-beta': 'fine-grained-tool-streaming-2025-05-14' },
-      providerOptions: {
-        // gateway: { order: ["bedrock", "vertex"] },
-        anthropic: {
-          cacheControl: { type: 'ephemeral' },
-        },
-      },
-    }
+    };
   }
 
   return {
     model: modelId,
-  }
+  };
 }
