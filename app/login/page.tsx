@@ -11,7 +11,7 @@ export default function LoginPage() {
             alt="A Developer Company"
             width={48}
             height={48}
-            className="rounded-full"
+            className="rounded"
           />
           A Developer Company
         </a>

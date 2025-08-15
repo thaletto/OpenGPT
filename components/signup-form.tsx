@@ -1,15 +1,9 @@
-'use client';
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import z from "zod";
+import z, { email } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -20,6 +14,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
+import { signUp } from "@/functions/users";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export function SignUpForm({
   className,
@@ -43,15 +42,27 @@ export function SignUpForm({
       password: "",
     },
   });
+  const router = useRouter();
 
-  async function signUp(values: z.infer<typeof formSchema>) {
-    try {
-      // Handle login logic here
-      console.log("Login attempt:", values);
-      // You can add your authentication logic here
-    } catch (error) {
-      console.error("Login error:", error);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSignup(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+
+    const { success, message } = await signUp(
+      values.email,
+      values.password,
+      values.username
+    );
+
+    if (success) {
+      toast.success(message as string);
+      router.push("/");
+    } else {
+      toast.error(message as string);
     }
+
+    setLoading(false);
   }
 
   return (
@@ -62,9 +73,16 @@ export function SignUpForm({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(signUp)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(handleSignup)}
+              className="space-y-6"
+            >
               <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full cursor-pointer" type="button">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer"
+                  type="button"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -96,11 +114,7 @@ export function SignUpForm({
                     <FormItem>
                       <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="john doe"
-                          {...field}
-                        />
+                        <Input type="text" placeholder="john doe" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -144,8 +158,8 @@ export function SignUpForm({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full cursor-pointer">
-                  Sign Up
+                <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
+                  {loading && <Loader2 className="animate-spin w-4" />} Sign Up
                 </Button>
               </div>
               <div className="text-center text-sm">

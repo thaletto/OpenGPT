@@ -1,10 +1,9 @@
-'use client';
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,12 +19,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { signIn } from "@/functions/users";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-
   const formSchema = z.object({
     email: z.email({ message: "Please enter a valid email address" }),
     password: z
@@ -40,17 +43,28 @@ export function LoginForm({
       password: "",
     },
   });
+  const router = useRouter();
 
-  async function signIn(values: z.infer<typeof formSchema>) {
-    try {
-      // Handle login logic here
-      console.log("Login attempt:", values);
-      // You can add your authentication logic here
-    } catch (error) {
-      console.error("Login error:", error);
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+
+    const { success, message } = await signIn(
+      values.email,
+      values.password,
+    );
+
+    if (success) {
+      toast.success(message as string);
+      router.push("/");
+    } else {
+      toast.error(message as string);
     }
-  }
 
+    setLoading(false);
+  }
+  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -59,9 +73,13 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(signIn)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
               <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full cursor-pointer" type="button">
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer"
+                  type="button"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -124,8 +142,8 @@ export function LoginForm({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full cursor-pointer">
-                  Login
+                <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
+                {loading && <Loader2 className="animate-spin w-4" />} Login
                 </Button>
               </div>
               <div className="text-center text-sm">
