@@ -14,6 +14,7 @@ import { mutate } from "swr";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
 import { VercelDashed } from "../icons/vercel-dashed";
+import { Badge } from "../ui/badge";
 
 interface Props {
   className: string;
@@ -54,9 +55,10 @@ export function Chat({ className }: Props) {
   return (
     <Panel className={className}>
       <PanelHeader>
-        <div className="flex items-center uppercase font-semibold">
-          <VercelDashed className="mr-2 w-4" />
+        <div className="flex flex-row items-start uppercase gap-2 font-semibold">
+          <VercelDashed />
           MathGPT
+          <Badge>beta</Badge>
         </div>
         <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
       </PanelHeader>

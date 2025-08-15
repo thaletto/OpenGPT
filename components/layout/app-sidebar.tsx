@@ -26,7 +26,12 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();
   return (
-    <Sidebar collapsible="icon" {...props} variant={props.variant} className="border-border">
+    <Sidebar
+      collapsible="icon"
+      {...props}
+      variant={props.variant}
+      className="border-border"
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuButton
@@ -34,11 +39,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             className="flex flex-row justify-between"
           >
             {open && (
-              <div className="flex flex-row">
-                <VercelDashed className="mr-1.5" />{" "}
-                <span className="hidden md:inline text-sm uppercase  font-bold tracking-wide">
-                  MathGPT
-                </span>
+              <div className="flex flex-row items-start uppercase gap-2 font-semibold">
+                <VercelDashed />
+                MathGPT
               </div>
             )}{" "}
             <PanelLeft />
