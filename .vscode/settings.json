@@ -8,7 +8,7 @@
     "*instrumentation-client*": true,
     "*lock*": true,
     "*markdown*": true,
-    "components*": true,
+    "components.*": true,
     "postcss*": true,
     "tsconfig*": true
   }
