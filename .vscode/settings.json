@@ -9,6 +9,7 @@
     "*lock*": true,
     "*markdown*": true,
     "components.*": true,
+    "drizzle*": true,
     "postcss*": true,
     "tsconfig*": true
   }
