@@ -1,14 +1,10 @@
-import type { InferUITools, UIMessage, UIMessageStreamWriter } from 'ai'
+import type { InferUITools } from "ai";
+import { chartTools } from "./chart";
 
-interface Params {
-  modelId: string
-  writer: UIMessageStreamWriter<UIMessage<never>>
-}
-
-export function tools({ modelId, writer }: Params) {
+export function tools() {
   return {
-    // All sandbox-related tools have been removed
-  }
+    ...chartTools,
+  };
 }
 
-export type ToolSet = InferUITools<ReturnType<typeof tools>>
+export type ToolSet = InferUITools<ReturnType<typeof tools>>;

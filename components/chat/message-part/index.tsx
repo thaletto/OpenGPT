@@ -1,20 +1,22 @@
-import type { Metadata } from '@/ai/messages/metadata'
-import type { ToolSet } from '@/ai/tools'
-import type { UIMessage } from 'ai'
+import type { Metadata } from "@/ai/messages/metadata";
+import type { ToolSet } from "@/ai/tools";
+import type { UIMessage } from "ai";
 
-import { Reasoning } from './reasoning'
-import { Text } from './text'
+import { Reasoning } from "./reasoning";
+import { Text } from "./text";
+import { ToolCard } from "./tool-card";
 
 interface Props {
-  part: UIMessage<Metadata, ToolSet>['parts'][number]
+  part: UIMessage<Metadata, ToolSet>["parts"][number];
 }
 
 export function MessagePart({ part }: Props) {
-  if (part.type === 'reasoning') {
-    return <Reasoning part={part} />
-  } else if (part.type === 'text') {
-    return <Text part={part} />
-  } else if (part.type) {
-    // console.log(JSON.stringify(part, undefined, 4));
+  console.log(part.type)
+  if (part.type === "reasoning") {
+    return <Reasoning part={part} />;
+  } else if (part.type === "text") {
+    return <Text part={part} />;
+  } else if (part.type === "tool-barChartTool" || part.type === "tool-lineChartTool") {
+    return <ToolCard toolCall={part} />;
   }
 }
