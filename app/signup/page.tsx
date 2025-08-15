@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/login-form";
+import { SignUpForm } from "@/components/signup-form";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -15,7 +15,7 @@ export default function LoginPage() {
           />
           A Developer Company
         </a>
-        <LoginForm />
+        <SignUpForm />
       </div>
     </div>
   );
