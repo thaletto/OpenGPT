@@ -1,5 +1,5 @@
 "use client";
-import { PanelLeft, Plus, Search } from "lucide-react";
+import { PanelLeft, Plus, Search, Sun } from "lucide-react";
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
 import {
@@ -21,25 +21,12 @@ const data = {
     email: "krlaxman03@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-      isActive: true,
-    },
-    {
-      title: "New Chat",
-      url: "#",
-      icon: Plus,
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props} variant={props.variant} className="border-border">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuButton
@@ -59,7 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -1,5 +1,7 @@
 "use client";
-import { type LucideIcon } from "lucide-react";
+import { Plus, Search, type LucideIcon } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import {
   SidebarGroup,
   SidebarMenu,
@@ -7,37 +9,41 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-  }[];
-}) {
-  function handleClick(action: (typeof items)[number]["title"]) {
-    if (action.toLowerCase().replace(/\s/g, "") === "newchat") {
-      window.dispatchEvent(new Event("new-chat"));
-    }
-  }
+export function NavMain() {
+  const { setTheme, resolvedTheme } = useTheme();
 
   return (
-    <SidebarGroup>
-      <SidebarMenu>
-        {items.map((item, index) => (
-          <SidebarMenuItem key={index}>
+    <>
+      <SidebarGroup>
+        <SidebarMenu>
+          <SidebarMenuItem>
             <SidebarMenuButton
-              tooltip={item.title}
-              onClick={() => handleClick(item.title)}
+              tooltip="New Chat"
+              onClick={() => {
+                window.dispatchEvent(new Event("new-chat"));
+              }}
             >
-              {item.icon && <item.icon />}
-              <span>{item.title}</span>
+              <Plus /> <span>New Chat</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
-    </SidebarGroup>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Search" onClick={() => {}}>
+              <Search /> <span>Search</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Toggle theme"
+              onClick={() =>
+                setTheme(resolvedTheme === "dark" ? "light" : "dark")
+              }
+            >
+              {resolvedTheme === "dark" ? <Moon /> : <Sun />}
+              <span>Toggle theme</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </>
   );
 }
