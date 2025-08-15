@@ -1,5 +1,5 @@
 "use client";
-import { Plus, Search, type LucideIcon } from "lucide-react";
+import { Loader, Plus, Search } from "lucide-react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useEffect, useState } from "react";
 
 export function NavMain() {
   const { setTheme, resolvedTheme } = useTheme();
@@ -31,19 +32,42 @@ export function NavMain() {
               <Search /> <span>Search</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Toggle theme"
-              onClick={() =>
-                setTheme(resolvedTheme === "dark" ? "light" : "dark")
-              }
-            >
-              {resolvedTheme === "dark" ? <Moon /> : <Sun />}
-              <span>Toggle theme</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <ThemeToggle />
         </SidebarMenu>
       </SidebarGroup>
     </>
+  );
+}
+
+function ThemeToggle() {
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <SidebarMenuItem>
+        <SidebarMenuButton>
+          <Loader className="animate-spin" />
+          Loading...
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    );
+  }
+
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        tooltip="Toggle theme"
+        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      >
+        {resolvedTheme === "dark" ? <Moon /> : <Sun />}
+        <span>Toggle theme</span>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { PanelLeft, Plus, Search, Sun } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
 import {
