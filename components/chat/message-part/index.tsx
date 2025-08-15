@@ -4,7 +4,7 @@ import type { UIMessage } from "ai";
 
 import { Reasoning } from "./reasoning";
 import { Text } from "./text";
-import { ToolCard } from "./tool-card";
+import {ToolChart } from "./chart-response";
 
 interface Props {
   part: UIMessage<Metadata, ToolSet>["parts"][number];
@@ -17,6 +17,6 @@ export function MessagePart({ part }: Props) {
   } else if (part.type === "text") {
     return <Text part={part} />;
   } else if (part.type === "tool-barChartTool" || part.type === "tool-lineChartTool") {
-    return <ToolCard toolCall={part} />;
+    return <ToolChart toolCall={part} />;
   }
 }

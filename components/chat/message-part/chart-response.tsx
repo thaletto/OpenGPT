@@ -3,16 +3,9 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartConfig,
 } from "@/components/ui/chart";
-import { BarChart as BarChartIcon, LineChart } from "lucide-react";
-import {
-  Bar,
-  CartesianGrid,
-  Line,
-  LineChart as RechartsLineChart,
-  XAxis,
-  BarChart as RechartsBarChart,
-} from "recharts";
+import { Bar, CartesianGrid, Line, LineChart, XAxis, BarChart } from "recharts";
 
 import type { UIMessage } from "ai";
 import type { ToolSet } from "@/ai/tools";
@@ -23,14 +16,13 @@ interface ToolCardProps {
   toolCall: UIMessage<any, ToolSet>["parts"][number];
 }
 
-export function ToolCard({ toolCall }: ToolCardProps) {
-  const chartConfig = {
-    value: {
-      label: "Value",
-      color: "hsl(var(--chart-1))",
-    },
-  };
+const chartConfig = {
+  default: {
+    color: "var(--chart-1)",
+  },
+} satisfies ChartConfig;
 
+export function ToolChart({ toolCall }: ToolCardProps) {
   // Type guard to ensure toolCall has the 'output' property and is a chart tool
   if (
     (toolCall.type !== "tool-lineChartTool" &&
@@ -51,8 +43,6 @@ export function ToolCard({ toolCall }: ToolCardProps) {
   return (
     <Card>
       <CardHeader className="flex-row items-center space-x-2">
-        {toolName === "lineChartTool" && <LineChart className="h-4 w-4" />}
-        {toolName === "barChartTool" && <BarChartIcon className="h-4 w-4" />}
         <CardTitle>{typedToolCall.output.title}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -61,7 +51,7 @@ export function ToolCard({ toolCall }: ToolCardProps) {
             config={chartConfig}
             className="min-h-[200px] w-full max-w-xl max-h-[400px]"
           >
-            <RechartsLineChart
+            <LineChart
               accessibilityLayer
               data={typedToolCall.output.data}
               margin={{ left: 12, right: 12 }}
@@ -69,7 +59,6 @@ export function ToolCard({ toolCall }: ToolCardProps) {
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="label"
-                type="category"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
@@ -81,17 +70,14 @@ export function ToolCard({ toolCall }: ToolCardProps) {
               />
               <Line
                 dataKey="value"
-                type="natural"
-                stroke="var(--color-value)"
+                type="linear"
+                stroke="var(--color-default)"
                 strokeWidth={2}
-                dot={{
-                  fill: "var(--color-value)",
-                }}
                 activeDot={{
                   r: 6,
                 }}
               />
-            </RechartsLineChart>
+            </LineChart>
           </ChartContainer>
         )}
         {toolName === "barChartTool" && (
@@ -99,24 +85,21 @@ export function ToolCard({ toolCall }: ToolCardProps) {
             config={chartConfig}
             className="min-h-[200px] w-full max-w-xl max-h-[400px]"
           >
-            <RechartsBarChart
-              accessibilityLayer
-              data={typedToolCall.output.data}
-            >
+            <BarChart accessibilityLayer data={typedToolCall.output.data}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="category"
                 tickLine={false}
+                tickMargin={10}
                 axisLine={false}
-                tickMargin={8}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent hideLabel />}
               />
-              <Bar dataKey="value" fill="var(--color-value)" radius={8} />
-            </RechartsBarChart>
+              <Bar dataKey="value" fill="var(--color-default)" radius={8} />
+            </BarChart>
           </ChartContainer>
         )}
       </CardContent>
