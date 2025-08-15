@@ -24,6 +24,7 @@ import { useState } from "react";
 import { signIn } from "@/functions/users";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { signInWithGoogle } from "@/lib/auth-client";
 
 export function LoginForm({
   className,
@@ -79,6 +80,7 @@ export function LoginForm({
                   variant="outline"
                   className="w-full cursor-pointer"
                   type="button"
+                  onClick={signInWithGoogle}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

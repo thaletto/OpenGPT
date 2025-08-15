@@ -19,6 +19,7 @@ import { signUp } from "@/functions/users";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { signInWithGoogle } from "@/lib/auth-client";
 
 export function SignUpForm({
   className,
@@ -82,6 +83,7 @@ export function SignUpForm({
                   variant="outline"
                   className="w-full cursor-pointer"
                   type="button"
+                  onClick={signInWithGoogle}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
