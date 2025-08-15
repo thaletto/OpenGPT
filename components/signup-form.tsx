@@ -1,14 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import z from "zod";
+import z, { email } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -19,18 +14,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn } from "@/functions/users";
+import { signUp } from "@/functions/users";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { signInWithGoogle } from "@/lib/auth-client";
 
-export function LoginForm({
+export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const formSchema = z.object({
+    username: z
+      .string()
+      .min(6, { error: "Username must be at least 6 characters" }),
     email: z.email({ message: "Please enter a valid email address" }),
     password: z
       .string()
@@ -40,6 +38,7 @@ export function LoginForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: "",
       email: "",
       password: "",
     },
@@ -48,12 +47,13 @@ export function LoginForm({
 
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin(values: z.infer<typeof formSchema>) {
+  async function handleSignup(values: z.infer<typeof formSchema>) {
     setLoading(true);
 
-    const { success, message } = await signIn(
+    const { success, message } = await signUp(
       values.email,
       values.password,
+      values.username
     );
 
     if (success) {
@@ -65,16 +65,19 @@ export function LoginForm({
 
     setLoading(false);
   }
-  
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardTitle className="text-xl">Welcome</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(handleSignup)}
+              className="space-y-6"
+            >
               <div className="flex flex-col gap-4">
                 <Button
                   variant="outline"
@@ -106,6 +109,19 @@ export function LoginForm({
                 </div>
               </div>
               <div className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input type="text" placeholder="john doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="email"
@@ -145,16 +161,16 @@ export function LoginForm({
                   )}
                 />
                 <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
-                {loading && <Loader2 className="animate-spin w-4" />} Login
+                  {loading && <Loader2 className="animate-spin w-4" />} Sign Up
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Already have an account?{" "}
                 <a
-                  href="/signup"
+                  href="/login"
                   className="underline underline-offset-4 hover:text-primary"
                 >
-                  Sign up
+                  Login
                 </a>
               </div>
             </form>
