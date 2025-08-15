@@ -53,17 +53,17 @@ export function Chat({ className }: Props) {
   return (
     <Panel className={className}>
       <PanelHeader>
-        <div className="flex items-center font-mono uppercase font-semibold">
+        <div className="flex items-center uppercase font-semibold">
           <MessageCircleIcon className="mr-2 w-4" />
           Chat
         </div>
-        <div className="ml-auto text-xs opacity-50 font-mono">[{status}]</div>
+        <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
       </PanelHeader>
 
       {/* Messages Area */}
       <div className="flex-1 min-h-0">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-sm text-muted-foreground font-mono">
+          <div className="flex flex-col items-center justify-center h-full text-sm text-muted-foreground ">
             <p className="flex items-center font-semibold">
               Click and try one of these prompts:
             </p>
@@ -107,7 +107,7 @@ export function Chat({ className }: Props) {
           }}
         />
         <Input
-          className="w-full text-sm border-0 bg-background font-mono rounded-sm"
+          className="w-full text-sm border-0 bg-background  rounded-sm"
           disabled={status === "streaming" || status === "submitted"}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."

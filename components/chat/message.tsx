@@ -1,23 +1,23 @@
-import type { ChatUIMessage } from './types'
-import { MessagePart } from './message-part'
-import { BotIcon, UserIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import type { ChatUIMessage } from "./types";
+import { MessagePart } from "./message-part";
+import { BotIcon, UserIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
-  message: ChatUIMessage
+  message: ChatUIMessage;
 }
 
 export function Message({ message }: Props) {
   return (
     <div
       className={cn({
-        'mr-20': message.role === 'assistant',
-        'ml-20': message.role === 'user',
+        "mr-20": message.role === "assistant",
+        "ml-20": message.role === "user",
       })}
     >
       {/* Message Header */}
-      <div className="flex items-center gap-2 text-sm font-medium font-mono text-primary mb-1.5">
-        {message.role === 'user' ? (
+      <div className="flex items-center gap-2 text-sm font-medium  text-primary mb-1.5">
+        {message.role === "user" ? (
           <>
             <UserIcon className="ml-auto w-4" />
             <span>You</span>
@@ -37,5 +37,5 @@ export function Message({ message }: Props) {
         ))}
       </div>
     </div>
-  )
+  );
 }

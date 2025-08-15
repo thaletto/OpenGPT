@@ -49,7 +49,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {open && (
               <div className="flex flex-row">
                 <VercelDashed className="mr-1.5" />{" "}
-                <span className="hidden md:inline text-sm uppercase font-mono font-bold tracking-wide">
+                <span className="hidden md:inline text-sm uppercase  font-bold tracking-wide">
                   MathGPT
                 </span>
               </div>
