@@ -1,39 +1,39 @@
-'use client'
+"use client";
 
-import type { ReactNode } from 'react'
-import { Button } from '@/components/ui/button'
-import { InfoIcon } from 'lucide-react'
-import { create } from 'zustand'
-import { useEffect } from 'react'
+import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { InfoIcon } from "lucide-react";
+import { create } from "zustand";
+import { useEffect } from "react";
 
 interface State {
-  open: boolean | undefined
-  setOpen: (open: boolean) => void
+  open: boolean | undefined;
+  setOpen: (open: boolean) => void;
 }
 
 export const useWelcomeStore = create<State>((set) => ({
   open: undefined,
   setOpen: (open) => set({ open }),
-}))
+}));
 
 export function Welcome(props: {
-  onDismissAction(): void
-  defaultOpen: boolean
+  onDismissAction(): void;
+  defaultOpen: boolean;
 }) {
-  const { open, setOpen } = useWelcomeStore()
+  const { open, setOpen } = useWelcomeStore();
 
   useEffect(() => {
-    setOpen(props.defaultOpen)
-  }, [setOpen, props.defaultOpen])
+    setOpen(props.defaultOpen);
+  }, [setOpen, props.defaultOpen]);
 
-  if (!(typeof open === 'undefined' ? props.defaultOpen : open)) {
-    return null
+  if (!(typeof open === "undefined" ? props.defaultOpen : open)) {
+    return null;
   }
 
   const handleDismiss = () => {
-    props.onDismissAction()
-    setOpen(false)
-  }
+    props.onDismissAction();
+    setOpen(false);
+  };
 
   return (
     <div className="fixed w-screen h-screen z-10">
@@ -56,17 +56,17 @@ export function Welcome(props: {
               full stack application.
             </p>
             <p className="text-base text-secondary-foreground">
-              It uses Vercel&quot;s AI Cloud services like{' '}
+              It uses Vercel&quot;s AI Cloud services like{" "}
               <ExternalLink href="https://vercel.com/docs/ai-gateway">
                 AI Gateway
-              </ExternalLink>{' '}
-              for GPT-5 and other models support,{' '}
+              </ExternalLink>{" "}
+              for GPT-5 and other models support,{" "}
               <ExternalLink href="https://vercel.com/fluid">
                 Fluid Compute
-              </ExternalLink>{' '}
-              for efficient rendering and streaming, and it&quot;s built with{' '}
-              <ExternalLink href="https://nextjs.org/">Next.js</ExternalLink>{' '}
-              and the{' '}
+              </ExternalLink>{" "}
+              for efficient rendering and streaming, and it&quot;s built with{" "}
+              <ExternalLink href="https://nextjs.org/">Next.js</ExternalLink>{" "}
+              and the{" "}
               <ExternalLink href="https://ai-sdk.dev/docs/introduction">
                 AI SDK
               </ExternalLink>
@@ -81,11 +81,11 @@ export function Welcome(props: {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function ToggleWelcome() {
-  const { open, setOpen } = useWelcomeStore()
+  const { open, setOpen } = useWelcomeStore();
   return (
     <Button
       className="cursor-pointer"
@@ -95,15 +95,15 @@ export function ToggleWelcome() {
     >
       <InfoIcon /> <span className="hidden lg:inline">What&quot;s this?</span>
     </Button>
-  )
+  );
 }
 
 function ExternalLink({
   children,
   href,
 }: {
-  children: ReactNode
-  href: string
+  children: ReactNode;
+  href: string;
 }) {
   return (
     <a
@@ -114,5 +114,5 @@ function ExternalLink({
     >
       {children}
     </a>
-  )
+  );
 }

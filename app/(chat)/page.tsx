@@ -1,12 +1,12 @@
-import { Chat } from '../components/chat/chat'
-import { TabItem, TabContent, TabGroup } from '@/components/tabs'
-import { Welcome } from '@/components/modals/welcome'
-import { cookies } from 'next/headers'
-import { hideBanner } from '@/functions/actions'
+import { Chat } from "@/components/chat/chat";
+import { TabItem, TabContent, TabGroup } from "@/components/tabs";
+import { Welcome } from "@/components/modals/welcome";
+import { cookies } from "next/headers";
+import { hideBanner } from "@/functions/actions";
 
 export default async function Page() {
-  const store = await cookies()
-  const banner = store.get('banner-hidden')?.value !== 'true'
+  const store = await cookies();
+  const banner = store.get("banner-hidden")?.value !== "true";
   return (
     <>
       <Welcome defaultOpen={banner} onDismissAction={hideBanner} />
@@ -24,5 +24,5 @@ export default async function Page() {
         </div>
       </div>
     </>
-  )
+  );
 }

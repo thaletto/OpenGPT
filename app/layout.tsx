@@ -2,8 +2,6 @@ import { Toaster } from "@/components/ui/sonner";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/layout/app-sidebar";
 import { Lexend, Lora, Fira_Code } from "next/font/google";
 import { Providers } from "@/components/providers";
 
@@ -36,12 +34,7 @@ export default function RootLayout({
       className={`${lexend.variable} ${lora.variable} ${firaCode.variable} font-sans`}
     >
       <body className="antialiased">
-        <Providers>
-          <SidebarProvider>
-            <AppSidebar variant="sidebar"/>
-            <SidebarInset>{children}</SidebarInset>
-          </SidebarProvider>
-        </Providers>
+        <Providers>{children}</Providers>
         <Toaster />
       </body>
     </html>

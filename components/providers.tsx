@@ -21,7 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-{children}
+      {children}
     </ThemeProvider>
   );
 }
