@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2Icon } from "lucide-react";
+import { Loader } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -96,7 +96,7 @@ export const ModelSelector = memo(function ModelSelector({
       <SelectTrigger className="w-[180px] bg-background">
         {isLoading ? (
           <div className="flex items-center gap-2">
-            <Loader2Icon className="h-4 w-4 animate-spin" />
+            <Loader className="h-4 w-4 animate-spin" />
             <span>Loading</span>
           </div>
         ) : error ? (
