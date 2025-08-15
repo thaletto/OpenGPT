@@ -1,24 +1,10 @@
-import type { InferUITools, UIMessage, UIMessageStreamWriter } from 'ai'
-import type { DataPart } from '../messages/data-parts'
-import { createSandbox } from './create-sandbox'
-import { generateFiles } from './generate-files'
-import { getSandboxURL } from './get-sandbox-url'
-import { runCommand } from './run-command'
-import { waitCommand } from './wait-command'
+import type { InferUITools } from "ai";
+import { chartTools } from "./chart";
 
-interface Params {
-  modelId: string
-  writer: UIMessageStreamWriter<UIMessage<never, DataPart>>
-}
-
-export function tools({ modelId, writer }: Params) {
+export function tools() {
   return {
-    createSandbox: createSandbox({ writer }),
-    generateFiles: generateFiles({ writer, modelId }),
-    getSandboxURL: getSandboxURL({ writer }),
-    runCommand: runCommand({ writer }),
-    waitCommand: waitCommand({ writer }),
-  }
+    ...chartTools,
+  };
 }
 
-export type ToolSet = InferUITools<ReturnType<typeof tools>>
+export type ToolSet = InferUITools<ReturnType<typeof tools>>;

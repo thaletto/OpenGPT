@@ -1,6 +1,6 @@
-import { PulseLoader } from 'react-spinners'
 import { cn } from '@/lib/utils'
+import { Loader } from 'lucide-react'
 
 export function MessageSpinner({ className }: { className?: string }) {
-  return <PulseLoader className={cn('opacity-60', className)} size={5} />
+  return <Loader className={cn('opacity-60 animate-spin', className)} size={5} />
 }

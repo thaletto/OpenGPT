@@ -1,25 +1,50 @@
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import { SandboxState } from '@/components/modals/sandbox-state'
-import { Toaster } from '@/components/ui/sonner'
-import type { ReactNode } from 'react'
-import type { Metadata } from 'next'
-import './globals.css'
+import { Toaster } from "@/components/ui/sonner";
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
+import "./globals.css";
+import { Lexend, Lora, Fira_Code } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+
+const lexend = Lexend({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const firaCode = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
-  title: 'Vercel Vibe Coding Agent',
-  description: '',
-}
+  title: "MathGPT",
+  description: "ChatGPT with graphical user interface",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${lexend.variable} ${lora.variable} ${firaCode.variable} font-sans`}
+      suppressHydrationWarning
+    >
       <body className="antialiased">
-        <NuqsAdapter>{children}</NuqsAdapter>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <Toaster />
-        <SandboxState />
       </body>
     </html>
-  )
+  );
 }

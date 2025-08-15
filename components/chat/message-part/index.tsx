@@ -1,36 +1,22 @@
-import type { Metadata } from '@/ai/messages/metadata'
-import type { DataPart } from '@/ai/messages/data-parts'
-import type { ToolSet } from '@/ai/tools'
-import type { UIMessage } from 'ai'
+import type { Metadata } from "@/ai/messages/metadata";
+import type { ToolSet } from "@/ai/tools";
+import type { UIMessage } from "ai";
 
-import { GenerateFiles } from './generate-files'
-import { CreateSandbox } from './create-sandbox'
-import { GetSandboxURL } from './get-sandbox-url'
-import { RunCommand } from './run-command'
-import { WaitCommand } from './wait-command'
-import { Reasoning } from './reasoning'
-import { Text } from './text'
+import { Reasoning } from "./reasoning";
+import { Text } from "./text";
+import {ToolChart } from "./chart-response";
 
 interface Props {
-  part: UIMessage<Metadata, DataPart, ToolSet>['parts'][number]
+  part: UIMessage<Metadata, ToolSet>["parts"][number];
 }
 
 export function MessagePart({ part }: Props) {
-  if (part.type === 'data-generating-files') {
-    return <GenerateFiles message={part.data} />
-  } else if (part.type === 'data-create-sandbox') {
-    return <CreateSandbox message={part.data} />
-  } else if (part.type === 'data-get-sandbox-url') {
-    return <GetSandboxURL message={part.data} />
-  } else if (part.type === 'data-run-command') {
-    return <RunCommand message={part.data} />
-  } else if (part.type === 'data-wait-command') {
-    return <WaitCommand message={part.data} />
-  } else if (part.type === 'reasoning') {
-    return <Reasoning part={part} />
-  } else if (part.type === 'text') {
-    return <Text part={part} />
-  } else if (part.type) {
-    // console.log(JSON.stringify(part, undefined, 4));
+  console.log(part.type)
+  if (part.type === "reasoning") {
+    return <Reasoning part={part} />;
+  } else if (part.type === "text") {
+    return <Text part={part} />;
+  } else if (part.type === "tool-barChartTool" || part.type === "tool-lineChartTool") {
+    return <ToolChart toolCall={part} />;
   }
 }
