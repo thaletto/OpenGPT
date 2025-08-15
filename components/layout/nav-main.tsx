@@ -48,16 +48,7 @@ function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return (
-      <SidebarMenuItem>
-        <SidebarMenuButton>
-          <Loader className="animate-spin" />
-          Loading...
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    );
-  }
+  if (!mounted) return null;
 
   return (
     <SidebarMenuItem>
