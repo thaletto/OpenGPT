@@ -1,5 +1,4 @@
 import { Chat } from '../components/chat/chat'
-import { Header } from '../components/layout/header'
 import { TabItem, TabContent, TabGroup } from '@/components/tabs'
 import { Welcome } from '@/components/modals/welcome'
 import { cookies } from 'next/headers'
@@ -12,7 +11,6 @@ export default async function Page() {
     <>
       <Welcome defaultOpen={banner} onDismissAction={hideBanner} />
       <div className="flex flex-col h-screen max-h-screen overflow-hidden p-2 space-x-2 space-y-2">
-        <Header className="flex items-center w-full" />
         <ul className="flex space-x-5 lg:hidden text-sm tracking-tight mt-1.5 px-1">
           <TabItem tabId="chat">Chat</TabItem>
         </ul>

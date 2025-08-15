@@ -2,7 +2,7 @@
 
 import type { ChatUIMessage } from "@/components/chat/types";
 import { DEFAULT_MODEL, TEST_PROMPTS } from "@/ai/constants";
-import { LoaderCircle, MessageCircleIcon, SendIcon } from "lucide-react";
+import { LoaderCircle, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Message } from "@/components/chat/message";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { mutate } from "swr";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
+import { VercelDashed } from "../icons/vercel-dashed";
 
 interface Props {
   className: string;
@@ -54,8 +55,8 @@ export function Chat({ className }: Props) {
     <Panel className={className}>
       <PanelHeader>
         <div className="flex items-center uppercase font-semibold">
-          <MessageCircleIcon className="mr-2 w-4" />
-          Chat
+          <VercelDashed className="mr-2 w-4" />
+          MathGPT
         </div>
         <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
       </PanelHeader>
