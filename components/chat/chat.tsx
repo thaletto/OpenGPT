@@ -17,6 +17,8 @@ import { Badge } from "../ui/badge";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../session-provider";
 import { useRouter } from "next/navigation";
+import { useMessageToken } from "@/hooks/use-message-token";
+import { encryptSessionToken, isEncryptedToken } from "@/lib/utils";
 
 interface Props {
   className: string;
@@ -25,6 +27,7 @@ interface Props {
 
 export function Chat({ className }: Props) {
   const [modelId, setModelId] = useState(DEFAULT_MODEL);
+  const { token, count, increment, unLockMessaging } = useMessageToken();
   const session = useSession();
   const router = useRouter();
   const [input, setInput] = useState("");
@@ -44,14 +47,24 @@ export function Chat({ className }: Props) {
   }, [messages]);
 
   const validateAndSubmitMessage = (text: string) => {
-    if (text.trim()) {
-      sendMessage({ text }, { body: { modelId } });
-      setInput("");
+    if (!text.trim()) return;
+
+    const isGuestToken = token && !isEncryptedToken(token);
+
+    // Guest Mode
+    if (!session && count >= 3 && isGuestToken) {
+      toast.info("Please log in to send more message");
+      return ;
     }
+
+    sendMessage({ text }, { body: { modelId } });
+    setInput("");
+
+    if (!session) increment();
   };
 
   function goToLogin() {
-    router.push('/login')
+    router.push("/login");
   }
 
   useEffect(() => {
@@ -71,12 +84,21 @@ export function Chat({ className }: Props) {
           />
           <VercelDashed className="hidden md:block text-primary" />
           <span className="hidden md:block text-primary">MathGPT</span>
-          <Badge variant="outline" className="hidden md:block">beta</Badge>
+          <Badge variant="outline" className="hidden md:block">
+            beta
+          </Badge>
         </div>
         {session?.session.token ? (
           <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
         ) : (
-          <Button type="button" onClick={goToLogin} className="ml-auto cursor-pointer"><LogIn />Login</Button>
+          <Button
+            type="button"
+            onClick={goToLogin}
+            className="ml-auto cursor-pointer"
+          >
+            <LogIn />
+            Login
+          </Button>
         )}
       </PanelHeader>
 
