@@ -12,14 +12,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
-import { VercelDashed } from "../icons/vercel-dashed";
+import { OmegaSymbol } from "../icons/omega";
 import { Badge } from "../ui/badge";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../session-provider";
 import { useRouter } from "next/navigation";
 import { useMessageToken } from "@/hooks/use-message-token";
 import { encryptSessionToken, isEncryptedToken } from "@/lib/utils";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Alert, AlertTitle } from "../ui/alert";
 
 interface Props {
   className: string;
@@ -69,7 +69,6 @@ export function Chat({ className }: Props) {
       unLockMessaging(encryptSessionToken(session));
     }
   }, [session]);
-  
 
   function goToLogin() {
     router.push("/login");
@@ -90,7 +89,7 @@ export function Chat({ className }: Props) {
             onClick={toggleSidebar}
             className="block md:hidden"
           />
-          <VercelDashed className="hidden md:block text-primary" />
+          <OmegaSymbol className="hidden md:block text-primary" />
           <span className="hidden md:block text-primary">MathGPT</span>
           <Badge variant="outline" className="hidden md:block">
             beta
