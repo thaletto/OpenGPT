@@ -2,7 +2,7 @@
 
 import type { ChatUIMessage } from "@/components/chat/types";
 import { DEFAULT_MODEL, TEST_PROMPTS } from "@/ai/constants";
-import { LoaderCircle, SendIcon } from "lucide-react";
+import { LoaderCircle, PanelLeft, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Message } from "@/components/chat/message";
@@ -15,6 +15,7 @@ import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState } from "react";
 import { VercelDashed } from "../icons/vercel-dashed";
 import { Badge } from "../ui/badge";
+import { useSidebar } from "../ui/sidebar";
 
 interface Props {
   className: string;
@@ -24,12 +25,12 @@ interface Props {
 export function Chat({ className }: Props) {
   const [modelId, setModelId] = useState(DEFAULT_MODEL);
   const [input, setInput] = useState("");
+  const { toggleSidebar } = useSidebar();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { messages, sendMessage, setMessages, status } = useChat<ChatUIMessage>(
     {
-      onToolCall: () => mutate("/api/auth/info"),
       onError: (error) => {
-        toast.error(`Communication error with the AI: ${error.message}`);
+        toast.error(`Communication error with the AI`);
         console.error("Error sending message:", error);
       },
     }
@@ -56,9 +57,10 @@ export function Chat({ className }: Props) {
     <Panel className={className}>
       <PanelHeader>
         <div className="flex flex-row items-start uppercase gap-2 font-semibold">
-          <VercelDashed />
-          MathGPT
-          <Badge>beta</Badge>
+          <PanelLeft size={20} onClick={toggleSidebar} className="block md:hidden" />
+          <VercelDashed className="hidden md:block"/>
+          <span className="hidden md:block">MathGPT</span>
+          <Badge className="hidden md:block">beta</Badge>
         </div>
         <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
       </PanelHeader>
