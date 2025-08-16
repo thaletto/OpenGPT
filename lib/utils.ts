@@ -6,8 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const SECRET =
-  "YXRtb3NwaGVyZWFwcGxld2V0c3Vycm91bmRlZHJvb2ZpbWFnZXBldHNlbGRvbWVxdWE=";
+const SECRET = process.env.BASE64_TOKEN || ""
 
 export function encryptSessionToken(session: FullSession) {
   const str = JSON.stringify({
