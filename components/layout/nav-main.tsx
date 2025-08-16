@@ -1,5 +1,5 @@
 "use client";
-import { Loader, Plus, Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
@@ -11,8 +11,6 @@ import {
 import { useEffect, useState } from "react";
 
 export function NavMain() {
-  const { setTheme, resolvedTheme } = useTheme();
-
   return (
     <>
       <SidebarGroup>

@@ -9,6 +9,10 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  session: {
+    expiresIn: 60 * 60 * 24 * 30, // 30 days
+    updateAge: 60 * 60 * 24 // Every 1 day the session expiration is updated
+  },
   emailAndPassword: {
     enabled: true,
   },

@@ -1,4 +1,8 @@
+"use client";
+
 import { ChevronsUpDown, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -16,74 +20,35 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
-export function NavUser() {
+interface NavUserProps {
+  session: any; // Using 'any' for now, can be typed more specifically later
+}
+
+export function NavUser({ session }: NavUserProps) {
   const { isMobile } = useSidebar();
   const router = useRouter();
-  const [user, setUser] = useState<{
-    name: string;
-    email: string;
-    avatar: string;
-  } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchSession() {
-      try {
-        const data = await authClient.getSession();
-        if (data?.data?.user) {
-          setUser({
-            name:
-              data.data.user.name ||
-              data.data.user.email?.split("@")[0] ||
-              "User",
-            email: data.data.user.email || "",
-            avatar: data.data.user.image || "/avatars/shadcn.jpg",
-          });
-        }
-      } catch (error) {
-        console.error("Failed to fetch session:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
+  if (!session?.user) return null;
 
-    fetchSession();
-  }, []);
+  const user = {
+    name: session.user.name || session.user.email?.split("@")[0] || "User",
+    email: session.user.email || "",
+    avatar: session.user.image || "/avatars/shadcn.jpg",
+  };
 
   async function logOut() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          toast.success("Logged Out")
+          toast.success("Logged Out");
           router.push("/login"); // redirect to login page
         },
         onError: () => {
-          toast.error("Error logging out")
-        }
+          toast.error("Error logging out");
+        },
       },
     });
-  }
-
-  if (isLoading || !user) {
-    return (
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <SidebarMenuButton size="lg" disabled>
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarFallback className="animate-pulse rounded-lg" />
-            </Avatar>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">Loading...</span>
-              <span className="truncate text-xs">Please wait</span>
-            </div>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    );
   }
 
   return (
@@ -155,9 +120,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator /> */}
-            <DropdownMenuItem
-              onClick={logOut}
-            >
+            <DropdownMenuItem onClick={logOut}>
               <LogOut />
               Log out
             </DropdownMenuItem>

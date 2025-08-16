@@ -16,9 +16,12 @@ export async function signIn(email: string, password: string) {
     };
   } catch (error) {
     const e = error as Error;
+    console.error(`Name ${e.name}`)
+    console.error(`Cause ${e.cause}`)
+    console.error(`Message ${e.message}`)
     return {
       success: false,
-      message: e.message || "An unknown error occured",
+      message: "An unknown error occured",
     };
   }
 }
@@ -39,9 +42,12 @@ export async function signUp(email: string, password: string, name: string) {
     };
   } catch (error) {
     const e = error as Error;
+    console.error(`Name ${e.name}`)
+    console.error(`Cause ${e.cause}`)
+    console.error(`Message ${e.message}`)
     return {
       success: false,
-      message: e.message || "An unknown error occured",
+      message: "An unknown error occured",
     };
   }
 }
