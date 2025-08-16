@@ -5,23 +5,21 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
 import type { ReactNode } from "react";
+import { SessionProvider } from "@/components/session-provider";
 
 export default async function ChatLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
-  const headersList = await headers();
   const session = await auth.api.getSession({
-    headers: headersList,
+    headers: await headers(),
   });
 
-  if (!session?.user) {
-    redirect("/login");
-  }
-
   return (
-    <SidebarProvider defaultOpen={false}>
-      <AppSidebar variant="sidebar" session={session} />
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
+    <SessionProvider session={session ?? null}>
+      <SidebarProvider defaultOpen={false}>
+        <AppSidebar variant="sidebar" />
+        <SidebarInset>{children}</SidebarInset>
+      </SidebarProvider>
+    </SessionProvider>
   );
 }

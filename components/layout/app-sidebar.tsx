@@ -13,13 +13,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { VercelDashed } from "../icons/vercel-dashed";
+import { useSession } from "../session-provider";
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  session: any; // Using 'any' for now, can be typed more specifically later
-}
 
-export function AppSidebar({ session, ...props }: AppSidebarProps) {
+export function AppSidebar({  ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();
+  const session = useSession();
   return (
     <Sidebar
       collapsible="icon"
@@ -34,7 +33,7 @@ export function AppSidebar({ session, ...props }: AppSidebarProps) {
             className="flex flex-row justify-between"
           >
             {open && (
-              <div className="flex flex-row items-start uppercase gap-2 font-semibold">
+              <div className="flex flex-row items-start text-primary uppercase gap-2 font-semibold">
                 <VercelDashed />
                 MathGPT
               </div>
