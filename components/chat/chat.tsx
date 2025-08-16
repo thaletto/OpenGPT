@@ -2,7 +2,7 @@
 
 import type { ChatUIMessage } from "@/components/chat/types";
 import { DEFAULT_MODEL, TEST_PROMPTS } from "@/ai/constants";
-import { LoaderCircle, LogIn, PanelLeft, SendIcon } from "lucide-react";
+import { Info, LoaderCircle, LogIn, PanelLeft, SendIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Message } from "@/components/chat/message";
@@ -19,6 +19,7 @@ import { useSession } from "../session-provider";
 import { useRouter } from "next/navigation";
 import { useMessageToken } from "@/hooks/use-message-token";
 import { encryptSessionToken, isEncryptedToken } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 interface Props {
   className: string;
@@ -54,7 +55,7 @@ export function Chat({ className }: Props) {
     // Guest Mode
     if (!session && count >= 3 && isGuestToken) {
       toast.info("Please log in to send more message");
-      return ;
+      return;
     }
 
     sendMessage({ text }, { body: { modelId } });
@@ -62,6 +63,13 @@ export function Chat({ className }: Props) {
 
     if (!session) increment();
   };
+
+  useEffect(() => {
+    if (session) {
+      unLockMessaging(encryptSessionToken(session));
+    }
+  }, [session]);
+  
 
   function goToLogin() {
     router.push("/login");
@@ -135,6 +143,22 @@ export function Chat({ className }: Props) {
         )}
       </div>
 
+      {count >= 3 && (
+        <Alert className="max-w-lg mb-2 mx-auto border-primary/18 text-muted-foreground rounded-none flex flex-row items-center">
+          <Info size={24} className="mb-1" />
+          <AlertTitle className="w-full flex flex-row items-center justify-between">
+            Login to continue using MathGPT
+            <Button
+              onClick={goToLogin}
+              type="button"
+              className="cursor-pointer"
+            >
+              <LogIn />
+              Login
+            </Button>
+          </AlertTitle>
+        </Alert>
+      )}
       <form
         className="flex space-x-1 p-2 border-t border-primary/18 bg-background items-center"
         onSubmit={async (event) => {
