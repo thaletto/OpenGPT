@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/sidebar";
 import { VercelDashed } from "../icons/vercel-dashed";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  session: any; // Using 'any' for now, can be typed more specifically later
+}
+
+export function AppSidebar({ session, ...props }: AppSidebarProps) {
   const { toggleSidebar, open } = useSidebar();
   return (
     <Sidebar
@@ -43,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <NavUser session={session} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
