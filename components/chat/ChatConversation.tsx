@@ -128,8 +128,8 @@ export function ChatConversation({ className }: Props) {
         )}
       </PanelHeader>
 
-      <Conversation>
-        <ConversationContent className="max-w-4xl mx-auto">
+      <Conversation className="flex flex-col flex-1 overflow-hidden">
+        <ConversationContent className="flex-1 max-w-4xl mx-auto overflow-y-auto">
           {messages.map((message, messageIndex) => {
             const isLastMessage = messageIndex === messages.length - 1;
             return (
