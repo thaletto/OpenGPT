@@ -12,11 +12,10 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { VercelDashed } from "../icons/vercel-dashed";
-import { useSession } from "../session-provider";
+import { OmegaSymbol } from "../icons/omega";
+import { useSession } from "../providers/session-provider";
 
-
-export function AppSidebar({  ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();
   const session = useSession();
   return (
@@ -34,7 +33,7 @@ export function AppSidebar({  ...props }: React.ComponentProps<typeof Sidebar>) 
           >
             {open && (
               <div className="flex flex-row items-start text-primary uppercase gap-2 font-semibold">
-                <VercelDashed />
+                <OmegaSymbol />
                 MathGPT
               </div>
             )}{" "}
