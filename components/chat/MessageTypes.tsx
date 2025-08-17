@@ -1,6 +1,6 @@
 import React from "react";
 import { Response } from "@/components/ai-elements/response";
-import type { ToolSet, UIDataTypes, UIMessagePart, UITools } from "ai";
+import type { UIDataTypes, UIMessagePart, UITools } from "ai";
 import { ActionBar } from "@/components/chat/ActionsBar";
 
 type Role = "user" | "system" | "assistant";

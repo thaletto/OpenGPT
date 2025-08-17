@@ -11,6 +11,7 @@ import { NextResponse } from "next/server";
 import { getAvailableModels, getModelOptions } from "@/ai/gateway";
 import { checkBotId } from "botid/server";
 import prompt from "./prompt.md";
+import { barChartTool, lineChartTool } from "@/ai/tools/chart";
 
 interface BodyData {
   messages: UIMessage[];
@@ -47,6 +48,11 @@ export async function POST(req: Request) {
           ...rest.openAIProviderOptions,
           ...rest.googleProviderOptions,
           ...rest.anthropicProviderOptions,
+
+          tools: {
+            lineChartTool,
+            barChartTool
+          },
 
           system: prompt,
           messages: convertToModelMessages(messages),

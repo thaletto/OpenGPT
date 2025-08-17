@@ -29,7 +29,7 @@ export const barChartSchema = z.object({
     .describe("An array of data points for the bar chart"),
 });
 
-const lineChartTool = tool({
+export const lineChartTool = tool({
   description: "Generates a line chart based on the provided data.",
   inputSchema: lineChartSchema,
   outputSchema: lineChartSchema,
@@ -38,7 +38,7 @@ const lineChartTool = tool({
   },
 });
 
-const barChartTool = tool({
+export const barChartTool = tool({
   description: "Generates a bar chart based on the provided data.",
   inputSchema: barChartSchema,
   outputSchema: barChartSchema,
@@ -46,8 +46,3 @@ const barChartTool = tool({
     return input;
   },
 });
-
-export const chartTools = {
-  lineChartTool,
-  barChartTool,
-};
