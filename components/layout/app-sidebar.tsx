@@ -13,7 +13,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { OmegaSymbol } from "../icons/omega";
-import { useSession } from "../session-provider";
+import { useSession } from "../providers/session-provider";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { toggleSidebar, open } = useSidebar();

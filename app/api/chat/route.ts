@@ -10,7 +10,6 @@ import { DEFAULT_MODEL } from "@/ai/constants";
 import { NextResponse } from "next/server";
 import { getAvailableModels, getModelOptions } from "@/ai/gateway";
 import { checkBotId } from "botid/server";
-import { tools } from "@/ai/tools";
 import prompt from "./prompt.md";
 
 interface BodyData {
@@ -52,7 +51,6 @@ export async function POST(req: Request) {
           system: prompt,
           messages: convertToModelMessages(messages),
           stopWhen: stepCountIs(20),
-          tools: tools(),
           onError: (error) => {
             console.error("Error communicating with AI");
             console.error(JSON.stringify(error, null, 2));

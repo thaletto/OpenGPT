@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
 import type { ReactNode } from "react";
-import { SessionProvider } from "@/components/session-provider";
+import { SessionProvider } from "@/components/providers/session-provider";
 
 export default async function ChatLayout({
   children,

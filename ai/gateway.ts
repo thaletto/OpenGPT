@@ -1,27 +1,11 @@
-import type { OpenAIResponsesProviderOptions } from "@ai-sdk/openai";
-import type { GoogleGenerativeAIProviderOptions } from "@ai-sdk/google";
-import type { AnthropicProviderOptions } from "@ai-sdk/anthropic";
-import { createGatewayProvider, type GatewayModelId } from "@ai-sdk/gateway";
-import type { LanguageModel } from "ai";
+import { AvailableModel, ModelOptions } from "@/types/models";
+import { createGatewayProvider } from "@ai-sdk/gateway";
 
 const gateway = createGatewayProvider();
-
-interface AvailableModel {
-  id: GatewayModelId | "openai/gpt-5";
-  name: string;
-}
 
 export async function getAvailableModels(): Promise<AvailableModel[]> {
   const response = await gateway.getAvailableModels();
   return [...response.models.map(({ id, name }) => ({ id, name }))];
-}
-
-interface ModelOptions {
-  model: LanguageModel;
-  headers?: Record<string, string>;
-  openAIProviderOptions?: OpenAIResponsesProviderOptions;
-  googleProviderOptions?: GoogleGenerativeAIProviderOptions;
-  anthropicProviderOptions?: AnthropicProviderOptions;
 }
 
 export function getModelOptions(modelId: string): ModelOptions {
