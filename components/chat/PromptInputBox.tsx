@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { AvailableModel } from "@/types/models";
 import type { ChatStatus } from "ai";
+import { DEFAULT_MODEL } from "@/ai/constants";
 
 interface Props {
     handleSubmit: () => void;
@@ -21,7 +22,6 @@ interface Props {
     modelId: string;
     setModelId: (value: string) => void;
     models: AvailableModel[];
-    DEFAULT_MODEL: string;
     status: ChatStatus;
   }
   
@@ -34,7 +34,6 @@ export function PromptInputBox({
   modelId,
   setModelId,
   models,
-  DEFAULT_MODEL,
   status
 }: Props) {
   return (
@@ -57,7 +56,7 @@ export function PromptInputBox({
           onValueChange={(value) => setModelId(value)}
         >
           <PromptInputModelSelectTrigger>
-            <PromptInputModelSelectValue defaultValue={DEFAULT_MODEL} />
+            <PromptInputModelSelectValue placeholder={DEFAULT_MODEL} />
           </PromptInputModelSelectTrigger>
           <PromptInputModelSelectContent>
             {models.map((model) => (

@@ -160,7 +160,6 @@ export function ChatConversation({ className }: Props) {
         modelId={modelId}
         setModelId={setModelId}
         models={models}
-        DEFAULT_MODEL={DEFAULT_MODEL}
         status={status}
         className="my-2 mx-auto max-w-4xl rounded border border-border"
       />
