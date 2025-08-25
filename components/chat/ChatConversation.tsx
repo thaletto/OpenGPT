@@ -155,7 +155,7 @@ export function ChatConversation({ className }: Props) {
         setModelId={setModelId}
         models={models}
         status={status}
-        className="my-2 mx-auto max-w-4xl rounded border border-border"
+        className="my-2 mx-auto max-w-4xl rounded-xl border border-border"
       />
     </Panel>
   );
