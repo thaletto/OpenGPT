@@ -12,7 +12,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { OmegaSymbol } from "../icons/omega";
+import { LogoIpsum } from "../icons/logoipsum";
 import { useSession } from "../providers/session-provider";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -33,7 +33,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           >
             {open && (
               <div className="flex flex-row items-start text-primary gap-2 font-semibold">
-                <OmegaSymbol />
+                <LogoIpsum />
                 OpenGPT
               </div>
             )}{" "}

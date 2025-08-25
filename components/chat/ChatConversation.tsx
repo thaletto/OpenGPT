@@ -7,7 +7,7 @@ import { Panel, PanelHeader } from "@/components/layout/panels";
 import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useState } from "react";
-import { OmegaSymbol } from "../icons/omega";
+import { LogoIpsum } from "../icons/logoipsum";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../providers/session-provider";
 import { useRouter } from "next/navigation";
@@ -107,7 +107,7 @@ export function ChatConversation({ className }: Props) {
             onClick={toggleSidebar}
             className="block md:hidden"
           />
-          <OmegaSymbol className="hidden md:block text-primary" />
+          <LogoIpsum className="hidden md:block text-primary" />
           <span className="hidden md:block text-primary">OpenGPT</span>
         </div>
         {!session?.session.token && (
