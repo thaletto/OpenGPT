@@ -1,12 +1,12 @@
 "use client";
 
-import { DEFAULT_MODEL, TEST_PROMPTS } from "@/ai/constants";
+import { DEFAULT_MODEL, SUGGESTIONS } from "@/ai/constants";
 import { LogIn, PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/layout/panels";
 import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LogoIpsum } from "../icons/logoipsum";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../providers/session-provider";
@@ -19,18 +19,15 @@ import {
   ConversationContent,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import {
-  Tool,
-  ToolContent,
-  ToolHeader,
-  ToolOutput,
-  ToolInput,
-} from "@/components/ai-elements/tool";
 import { Message, MessageContent } from "@/components/ai-elements/message";
 import { getSupportedModels } from "@/functions/models";
 import type { AvailableModel } from "@/types/models";
 import { PromptInputBox } from "./PromptInputBox";
 import { MessageTypes } from "./MessageTypes";
+import { GithubIcon } from "../icons/githubicon";
+import { Suggestion, Suggestions } from "../ai-elements/suggestion";
+import { Loader } from "../ai-elements/loader";
+import Link from "next/link";
 
 interface Props {
   className: string;
@@ -50,6 +47,8 @@ export function ChatConversation({ className }: Props) {
       console.error("Error sending message:", error);
     },
   });
+
+  const noMessage = useMemo(() => messages.length === 0, [messages]);
 
   function validateAndSubmitMessage(text: string) {
     if (!text.trim()) return;
@@ -107,11 +106,22 @@ export function ChatConversation({ className }: Props) {
             onClick={toggleSidebar}
             className="block md:hidden"
           />
-          <div className="hidden md:flex flex-row justify-center items-center gap-1 text-primary">
+          <div className="hidden md:flex flex-row justify-center items-center gap-2 text-primary">
             <LogoIpsum />
             <span>OpenGPT</span>
           </div>
         </div>
+
+        <Link
+          href="https://www.github.com/thaletto/OpenGPT"
+          about="Link to GitHub repository"
+          className="ml-auto cursor-pointer"
+          target="_blank"
+        >
+          <Button variant="outline">
+            <GithubIcon />
+          </Button>
+        </Link>
 
         {!session?.session.token && (
           <Button
@@ -126,9 +136,9 @@ export function ChatConversation({ className }: Props) {
       </PanelHeader>
 
       <Conversation className="flex flex-col flex-1 justify-center items-center overflow-hidden">
-        {messages.length === 0 && (
+        {noMessage && (
           <div className="flex md:hidden flex-row w-full h-full justify-center items-end">
-            <div className="flex flex-row items-center gap-1 text-2xl text-primary">
+            <div className="flex flex-row items-center gap-2 text-2xl text-primary">
               <LogoIpsum />
               <span>OpenGPT</span>
             </div>
@@ -138,26 +148,40 @@ export function ChatConversation({ className }: Props) {
           {messages.map((message, messageIndex) => {
             const isLastMessage = messageIndex === messages.length - 1;
             return (
-              <Message from={message.role} key={messageIndex}>
-                <MessageContent>
-                  {message.parts.map((part, i) => (
-                    <MessageTypes
-                      part={part}
-                      key={i}
-                      index={i}
-                      isLastMessage={isLastMessage}
-                      role={message.role}
-                      regenerate={regenerate}
-                    />
-                  ))}
-                </MessageContent>
-              </Message>
+              <>
+                <Message from={message.role} key={messageIndex}>
+                  <MessageContent>
+                    {message.parts.map((part, i) => (
+                      <MessageTypes
+                        part={part}
+                        key={i}
+                        index={i}
+                        isLastMessage={isLastMessage}
+                        role={message.role}
+                        regenerate={regenerate}
+                      />
+                    ))}
+                  </MessageContent>
+                </Message>
+                {status === "submitted" && isLastMessage && <Loader />}
+              </>
             );
           })}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
 
+      {noMessage && (
+        <Suggestions className="mx-auto max-w-sm md:max-w-xl lg:max-w-4xl overflow-x-none">
+          {SUGGESTIONS.map((suggestion) => (
+            <Suggestion
+              key={suggestion}
+              onClick={() => validateAndSubmitMessage(suggestion)}
+              suggestion={suggestion}
+            />
+          ))}
+        </Suggestions>
+      )}
       <PromptInputBox
         handleSubmit={() => validateAndSubmitMessage(input)}
         input={input}
