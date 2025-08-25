@@ -21,8 +21,8 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "MathGPT",
-  description: "ChatGPT with graphical user interface",
+  title: "OpenGPT",
+  description: "Open Source ChatGPT alternative",
 };
 
 export default function RootLayout({
