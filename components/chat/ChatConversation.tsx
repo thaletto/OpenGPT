@@ -107,9 +107,12 @@ export function ChatConversation({ className }: Props) {
             onClick={toggleSidebar}
             className="block md:hidden"
           />
-          <LogoIpsum className="hidden md:block text-primary" />
-          <span className="hidden md:block text-primary">OpenGPT</span>
+          <div className="hidden md:flex flex-row justify-center items-center gap-1 text-primary">
+            <LogoIpsum />
+            <span>OpenGPT</span>
+          </div>
         </div>
+
         {!session?.session.token && (
           <Button
             type="button"
@@ -122,7 +125,15 @@ export function ChatConversation({ className }: Props) {
         )}
       </PanelHeader>
 
-      <Conversation className="flex flex-col flex-1 overflow-hidden">
+      <Conversation className="flex flex-col flex-1 justify-center items-center overflow-hidden">
+        {messages.length === 0 && (
+          <div className="flex md:hidden flex-row w-full h-full justify-center items-end">
+            <div className="flex flex-row items-center gap-1 text-2xl text-primary">
+              <LogoIpsum />
+              <span>OpenGPT</span>
+            </div>
+          </div>
+        )}
         <ConversationContent className="flex-1 max-w-4xl mx-auto overflow-y-auto">
           {messages.map((message, messageIndex) => {
             const isLastMessage = messageIndex === messages.length - 1;
@@ -155,7 +166,7 @@ export function ChatConversation({ className }: Props) {
         setModelId={setModelId}
         models={models}
         status={status}
-        className="my-2 mx-auto max-w-4xl rounded-xl border border-border"
+        className="my-2 mx-auto max-w-sm md:max-w-xl lg:max-w-4xl rounded-xl border border-border"
       />
     </Panel>
   );

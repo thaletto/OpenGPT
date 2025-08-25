@@ -16,7 +16,7 @@ import { LogoIpsum } from "../icons/logoipsum";
 import { useSession } from "../providers/session-provider";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { toggleSidebar, open } = useSidebar();
+  const { toggleSidebar, open, openMobile } = useSidebar();
   const session = useSession();
   return (
     <Sidebar
@@ -31,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             onClick={toggleSidebar}
             className="flex flex-row justify-between"
           >
-            {open && (
+            {(open || openMobile) && (
               <div className="flex flex-row items-start text-primary gap-2 font-semibold">
                 <LogoIpsum />
                 OpenGPT
