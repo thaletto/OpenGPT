@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useState } from "react";
 import { OmegaSymbol } from "../icons/omega";
-import { Badge } from "../ui/badge";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../providers/session-provider";
 import { useRouter } from "next/navigation";
@@ -67,7 +66,7 @@ export function ChatConversation({ className }: Props) {
     setInput("");
 
     if (!session) increment();
-  };
+  }
 
   useEffect(() => {
     if (session) {
@@ -101,22 +100,17 @@ export function ChatConversation({ className }: Props) {
 
   return (
     <Panel className={className}>
-      <PanelHeader>
-        <div className="flex flex-row items-start uppercase gap-2 font-semibold">
+      <PanelHeader className="h-12 bg-background">
+        <div className="flex flex-row items-start gap-2 font-semibold">
           <PanelLeft
             size={20}
             onClick={toggleSidebar}
             className="block md:hidden"
           />
           <OmegaSymbol className="hidden md:block text-primary" />
-          <span className="hidden md:block text-primary">MathGPT</span>
-          <Badge variant="outline" className="hidden md:block">
-            beta
-          </Badge>
+          <span className="hidden md:block text-primary">OpenGPT</span>
         </div>
-        {session?.session.token ? (
-          <div className="ml-auto text-xs opacity-50 ">[{status}]</div>
-        ) : (
+        {!session?.session.token && (
           <Button
             type="button"
             onClick={goToLogin}

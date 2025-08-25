@@ -32,9 +32,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             className="flex flex-row justify-between"
           >
             {open && (
-              <div className="flex flex-row items-start text-primary uppercase gap-2 font-semibold">
+              <div className="flex flex-row items-start text-primary gap-2 font-semibold">
                 <OmegaSymbol />
-                MathGPT
+                OpenGPT
               </div>
             )}{" "}
             <PanelLeft />
