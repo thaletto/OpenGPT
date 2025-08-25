@@ -52,7 +52,7 @@ export function ChatConversation({ className }: Props) {
     },
   });
 
-  const validateAndSubmitMessage = (text: string) => {
+  function validateAndSubmitMessage(text: string) {
     if (!text.trim()) return;
 
     const isGuestToken = token && !isEncryptedToken(token);
