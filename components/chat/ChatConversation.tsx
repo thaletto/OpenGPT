@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Panel, PanelHeader } from "@/components/layout/panels";
 import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { LogoIpsum } from "../icons/logoipsum";
 import { useSidebar } from "../ui/sidebar";
 import { useSession } from "../providers/session-provider";
@@ -112,16 +112,20 @@ export function ChatConversation({ className }: Props) {
           </div>
         </div>
 
-        <Link
-          href="https://www.github.com/thaletto/OpenGPT"
-          about="Link to GitHub repository"
+        <Button
+          type="button"
+          variant="outline"
           className="ml-auto cursor-pointer"
-          target="_blank"
+          asChild
         >
-          <Button variant="outline">
+          <Link
+            href="https://www.github.com/thaletto/OpenGPT"
+            about="Link to GitHub repository"
+            target="_blank"
+          >
             <GithubIcon />
-          </Button>
-        </Link>
+          </Link>
+        </Button>
 
         {!session?.session.token && (
           <Button
@@ -148,8 +152,8 @@ export function ChatConversation({ className }: Props) {
           {messages.map((message, messageIndex) => {
             const isLastMessage = messageIndex === messages.length - 1;
             return (
-              <>
-                <Message from={message.role} key={messageIndex}>
+              <React.Fragment key={messageIndex}>
+                <Message from={message.role}>
                   <MessageContent>
                     {message.parts.map((part, i) => (
                       <MessageTypes
@@ -164,7 +168,7 @@ export function ChatConversation({ className }: Props) {
                   </MessageContent>
                 </Message>
                 {status === "submitted" && isLastMessage && <Loader />}
-              </>
+              </React.Fragment>
             );
           })}
         </ConversationContent>
