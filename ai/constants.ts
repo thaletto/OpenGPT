@@ -13,7 +13,8 @@ export const SUPPORTED_MODELS: GatewayModelId[] = [
   'xai/grok-3-fast',
 ]
 
-export const TEST_PROMPTS = [
-  'Create a bar chart of top 5 most populated countries',
-  `Create a line chart of Ronaldo's goals in last 8 matches`,
+export const SUGGESTIONS = [
+  'Help me draft an email.',
+  'Suggest a diet plan for bodybuilding',
+  'Plan a short weekend activity.',
 ]
