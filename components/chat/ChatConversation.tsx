@@ -99,8 +99,8 @@ export function ChatConversation({ className }: Props) {
 
   return (
     <Panel className={className}>
-      <PanelHeader className="h-12 bg-background">
-        <div className="flex flex-row items-start gap-2 font-semibold">
+      <PanelHeader className="h-12 flex flex-row justify-between bg-background">
+        <div className="flex flex-row justify-between gap-2 font-semibold">
           <PanelLeft
             size={20}
             onClick={toggleSidebar}
@@ -112,31 +112,33 @@ export function ChatConversation({ className }: Props) {
           </div>
         </div>
 
-        <Button
-          type="button"
-          variant="outline"
-          className="ml-auto cursor-pointer"
-          asChild
-        >
-          <Link
-            href="https://www.github.com/thaletto/OpenGPT"
-            about="Link to GitHub repository"
-            target="_blank"
-          >
-            <GithubIcon />
-          </Link>
-        </Button>
-
-        {!session?.session.token && (
+        <div className="flex flex-row items-center gap-1">
           <Button
             type="button"
-            onClick={goToLogin}
-            className="ml-auto cursor-pointer"
+            variant="secondary"
+            className="cursor-pointer"
+            asChild
           >
-            <LogIn />
-            Login
+            <Link
+              href="https://www.github.com/thaletto/OpenGPT"
+              about="Link to GitHub repository"
+              target="_blank"
+            >
+              <GithubIcon />
+            </Link>
           </Button>
-        )}
+
+          {!session?.session.token && (
+            <Button
+              type="button"
+              onClick={goToLogin}
+              className=" cursor-pointer"
+            >
+              <LogIn />
+              <span className="hidden md:block">Login</span>
+            </Button>
+          )}
+        </div>
       </PanelHeader>
 
       <Conversation className="flex flex-col flex-1 justify-center items-center overflow-hidden">
