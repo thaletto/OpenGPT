@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Lexend, Fira_Code } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import {Analytics} from '@vercel/analytics/next'
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -39,6 +41,8 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <Toaster />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
