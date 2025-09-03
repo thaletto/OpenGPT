@@ -5,7 +5,8 @@ import { useRef } from "react";
 import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
-import { SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { useIsMounted } from "@/hooks/use-mounted";
 
 type props = {
   className?: string;
@@ -13,7 +14,9 @@ type props = {
 
 export const AnimatedThemeToggler = ({ className }: props) => {
   const { theme, setTheme } = useTheme();
+  const mounted = useIsMounted();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+
   const changeTheme = async () => {
     if (!buttonRef.current) return;
 
@@ -57,8 +60,8 @@ export const AnimatedThemeToggler = ({ className }: props) => {
           onClick={changeTheme}
           className={cn(className)}
         >
-          {theme ? <SunDim /> : <Moon />}
-          <span>Toggle Theme</span>
+          {mounted && (theme === "dark" ? <SunDim /> : <Moon />)}
+          {mounted && <span>Toggle Theme</span>}
         </SidebarMenuButton>
       </SidebarMenuItem>
     </>
