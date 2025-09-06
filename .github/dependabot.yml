@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # For Bun (uses package.json and bun.lockb, treat as npm ecosystem)
+  - package-ecosystem: "npm"
+    directory: "/" # Root folder where package.json and bun.lockb are
+    schedule:
+      interval: "weekly"
