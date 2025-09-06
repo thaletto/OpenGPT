@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+
+# OpenGPT
+***An Open Source ChatGPT Alternative***
+
+<img src="https://raw.githubusercontent.com/thaletto/thaletto/refs/heads/main/public/projects/opengpt.jpeg" width="100%" />
+
+![GitHub Repo stars](https://img.shields.io/github/stars/thaletto/opengpt?style=for-the-badge&logo=github)
+![GitHub forks](https://img.shields.io/github/forks/thaletto/opengpt?style=for-the-badge&logo=github)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/thaletto/opengpt?style=for-the-badge&logo=github)
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/thaletto/opengpt"> <img src="https://vercel.com/button" alt="Deploy with Vercel"/> </a> 
+
+</div>
+
+
+
+## About OpenGPT
+**OpenGPT** is an open-source alternative to ChatGPT, powered by the [AI SDK](https://ai-sdk.dev) and the [Vercel AI Gateway](https://vercel.com/ai-gateway).  
+
+It leverages **AI Elements**, **Streamdown**, and modern **Next.js 15** features like  
+**Server Functions** and **React Server Components (RSC)**.
+
+## Features
+- Built with Next.js 15 (Server Functions + RSC)  
+- Powered by Vercel AI SDK + AI Gateway  
+- AI Elements and Streamdown integration
+- Supports oAuth
+- Fully deployable on **Vercel** in one click  
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Clone the repository
 ```bash
+git clone https://github.com/thaletto/opengpt.git
+cd opengpt
+```
+
+### 2. Install dependencies
+```bash
+pnpm install
+# or
+npm install
+# or
+yarn install
+# or
+bun install
+```
+
+### 3. Setup environment variables
+Create a .env.local file in the root of the project:
+
+*Get an AI Gateway API key [here](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%2Fapi-keys%3Futm_source%3Dai_gateway_landing_page&title=Get+an+API+Key)*
+
+```
+AI_GATEWAY_API_KEY=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+
+DATABASE_URL=
+
+BASE64_TOKEN=
+```
+
+### 4. Run locally
+```bash
+pnpm dev
+# or
 npm run dev
 # or
 yarn dev
 # or
-pnpm dev
-# or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
