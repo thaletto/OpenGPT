@@ -15,6 +15,12 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: 'any',
         type: 'image/x-icon',
       },
+      {
+        src: 'https://raw.githubusercontent.com/thaletto/thaletto/refs/heads/main/public/projects/opengpt.jpeg',
+        sizes: '1200x630',
+        type: 'image/jpeg',
+        purpose: 'any maskable',
+      },
     ],
   }
 }
