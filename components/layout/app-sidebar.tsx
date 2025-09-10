@@ -1,5 +1,3 @@
-"use client";
-import { PanelLeft } from "lucide-react";
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
 import {
@@ -8,16 +6,11 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarRail,
-  useSidebar,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { LogoIpsum } from "../icons/logoipsum";
-import { useSession } from "../providers/session-provider";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { toggleSidebar, open, openMobile } = useSidebar();
-  const session = useSession();
   return (
     <Sidebar
       collapsible="icon"
@@ -26,26 +19,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="border-border"
     >
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuButton
-            onClick={toggleSidebar}
-            className="flex flex-row justify-between"
-          >
-            {(open || openMobile) && (
-              <div className="flex flex-row items-start text-primary gap-2 font-semibold">
-                <LogoIpsum />
-                OpenGPT
-              </div>
-            )}{" "}
-            <PanelLeft />
-          </SidebarMenuButton>
+        <SidebarMenu className="flex flex-row justify-end">
+          <SidebarTrigger size="lg" />
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser session={session} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

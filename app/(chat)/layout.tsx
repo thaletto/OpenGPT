@@ -1,10 +1,8 @@
 import { headers } from "next/headers";
-
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
 import { SessionProvider } from "@/components/providers/session-provider";
-import { MobileNav } from "@/components/layout/mobile-nav";
 
 export default async function ChatLayout({
   children,
@@ -18,7 +16,6 @@ export default async function ChatLayout({
       <SidebarProvider defaultOpen={false}>
         <AppSidebar variant="sidebar" />
         <SidebarInset>
-          <MobileNav />
           {children}
         </SidebarInset>
       </SidebarProvider>
