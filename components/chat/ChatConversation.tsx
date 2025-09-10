@@ -59,8 +59,6 @@ export function ChatConversation() {
     }
   }, [session]);
 
-  
-
   useEffect(() => {
     const onNewChat = () => setMessages([]);
     window.addEventListener("new-chat", onNewChat);
@@ -85,51 +83,61 @@ export function ChatConversation() {
     <>
       <Conversation className="flex flex-col flex-1 justify-center items-center overflow-hidden">
         {noMessage && (
-          <div className="flex md:hidden flex-row w-full h-full justify-center items-end">
-            <div className="flex flex-row items-center gap-2 text-2xl text-primary">
-              <LogoIpsum />
-              <span>OpenGPT</span>
-            </div>
+          <div className="flex flex-col justify-start items-start p-4 flex-1 mx-auto w-sm md:w-xl lg:w-4xl">
+            <h1 className="text-2xl font-bold font-sans w-full max-w-sm k">
+              {session?.user.name && `Hello ${session?.user.name}`}
+              <br />
+              <span className="text-zinc-500">How can I help you?</span>
+            </h1>
           </div>
         )}
-        <ConversationContent className="flex-1 max-w-4xl mx-auto overflow-y-auto">
-          {messages.map((message, messageIndex) => {
-            const isLastMessage = messageIndex === messages.length - 1;
-            return (
-              <React.Fragment key={messageIndex}>
-                <Message from={message.role}>
-                  <MessageContent>
-                    {message.parts.map((part, i) => (
-                      <MessageTypes
-                        part={part}
-                        key={i}
-                        index={i}
-                        isLastMessage={isLastMessage}
-                        role={message.role}
-                        regenerate={regenerate}
-                      />
-                    ))}
-                  </MessageContent>
-                </Message>
-                {status === "submitted" && isLastMessage && <Loader />}
-              </React.Fragment>
-            );
-          })}
-        </ConversationContent>
-        <ConversationScrollButton />
+
+        {!noMessage && (
+          <>
+            <ConversationContent className="flex-1 max-w-4xl mx-auto overflow-y-auto">
+              {messages.map((message, messageIndex) => {
+                const isLastMessage = messageIndex === messages.length - 1;
+                return (
+                  <React.Fragment key={messageIndex}>
+                    <Message from={message.role}>
+                      <MessageContent variant="flat">
+                        {message.parts.map((part, i) => (
+                          <MessageTypes
+                            part={part}
+                            key={i}
+                            index={i}
+                            isLastMessage={isLastMessage}
+                            role={message.role}
+                            regenerate={regenerate}
+                          />
+                        ))}
+                      </MessageContent>
+                    </Message>
+                    {status === "submitted" && isLastMessage && <Loader />}
+                  </React.Fragment>
+                );
+              })}
+            </ConversationContent>
+            <ConversationScrollButton />
+          </>
+        )}
       </Conversation>
 
       {noMessage && (
-        <Suggestions className="mx-auto max-w-sm md:max-w-xl lg:max-w-4xl overflow-x-none">
-          {SUGGESTIONS.map((suggestion) => (
-            <Suggestion
-              key={suggestion}
-              onClick={() => validateAndSubmitMessage(suggestion)}
-              suggestion={suggestion}
-            />
-          ))}
-        </Suggestions>
+        <div className="mx-auto w-sm md:w-xl lg:w-4xl overflow-x-none">
+          <div className="grid grid-cols-2 gap-2">
+            {SUGGESTIONS.map((suggestion) => (
+              <Suggestion
+                key={suggestion}
+                onClick={() => validateAndSubmitMessage(suggestion)}
+                suggestion={suggestion}
+                className="text-xs py-6 rounded-md !text-wrap border-border"
+              />
+            ))}
+          </div>
+        </div>
       )}
+
       <PromptInputBox
         handleSubmit={() => validateAndSubmitMessage(input)}
         input={input}

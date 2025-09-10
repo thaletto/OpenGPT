@@ -3,7 +3,8 @@ import { GithubIcon } from "@/components/icons/githubicon";
 import { LogoIpsum } from "@/components/icons/logoipsum";
 import { Panel, PanelHeader } from "@/components/layout/panels";
 import { Button } from "@/components/ui/button";
-import { LogIn, PanelLeft, Plus } from "lucide-react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { LogIn, Plus } from "lucide-react";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -24,7 +25,7 @@ export default async function Page() {
             <Panel className="flex-1 overflow-hidden">
               <PanelHeader className="h-12 flex flex-row justify-between bg-background">
                 <div className="flex flex-row justify-between gap-2 font-semibold">
-                  <PanelLeft size={20} className="block md:hidden" />
+                  <SidebarTrigger size='lg' className="block md:hidden" />
                   <div className="hidden md:flex flex-row justify-center items-center gap-2 text-primary">
                     <LogoIpsum />
                     <span>OpenGPT</span>

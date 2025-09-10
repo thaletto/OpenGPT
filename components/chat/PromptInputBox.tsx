@@ -15,16 +15,15 @@ import type { ChatStatus } from "ai";
 import { DEFAULT_MODEL } from "@/ai/constants";
 
 interface Props {
-    handleSubmit: () => void;
-    className?: string;
-    input: string;
-    setInput: (value: string) => void;
-    modelId: string;
-    setModelId: (value: string) => void;
-    models: AvailableModel[];
-    status: ChatStatus;
-  }
-  
+  handleSubmit: () => void;
+  className?: string;
+  input: string;
+  setInput: (value: string) => void;
+  modelId: string;
+  setModelId: (value: string) => void;
+  models: AvailableModel[];
+  status: ChatStatus;
+}
 
 export function PromptInputBox({
   handleSubmit,
@@ -34,14 +33,11 @@ export function PromptInputBox({
   modelId,
   setModelId,
   models,
-  status
+  status,
 }: Props) {
   return (
     <PromptInput
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
+      onSubmit={() => handleSubmit()}
       className={cn(className, "relative")}
     >
       <PromptInputTextarea
@@ -66,7 +62,11 @@ export function PromptInputBox({
             ))}
           </PromptInputModelSelectContent>
         </PromptInputModelSelect>
-        <PromptInputSubmit className="absolute right-1 bottom-1" disabled={false} status={status}/>
+        <PromptInputSubmit
+          className="absolute right-1 bottom-1"
+          disabled={false}
+          status={status}
+        />
       </PromptInputToolbar>
     </PromptInput>
   );

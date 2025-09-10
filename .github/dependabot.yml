@@ -5,3 +5,4 @@ updates:
     directory: "/" # Root folder where package.json and bun.lockb are
     schedule:
       interval: "weekly"
+    target-branch: "development"

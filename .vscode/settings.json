@@ -1,6 +1,7 @@
 {
   "files.exclude": {
     ".gitignore": true,
+    ".github": true,
     ".next": true,
     ".vscode": true,
     "*.d.ts": true,
