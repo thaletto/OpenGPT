@@ -85,7 +85,8 @@ export function ChatConversation() {
         {noMessage && (
           <div className="flex flex-col justify-start items-start p-4 flex-1 mx-auto w-sm md:w-xl lg:w-4xl">
             <h1 className="text-2xl font-bold font-sans w-full max-w-sm k">
-              Hello {session?.user.name} <br />{" "}
+              {session?.user.name && `Hello ${session?.user.name}`}
+              <br />
               <span className="text-zinc-500">How can I help you?</span>
             </h1>
           </div>
@@ -99,7 +100,7 @@ export function ChatConversation() {
                 return (
                   <React.Fragment key={messageIndex}>
                     <Message from={message.role}>
-                      <MessageContent variant='flat'>
+                      <MessageContent variant="flat">
                         {message.parts.map((part, i) => (
                           <MessageTypes
                             part={part}
