@@ -99,7 +99,7 @@ export function ChatConversation() {
                 return (
                   <React.Fragment key={messageIndex}>
                     <Message from={message.role}>
-                      <MessageContent>
+                      <MessageContent variant='flat'>
                         {message.parts.map((part, i) => (
                           <MessageTypes
                             part={part}
