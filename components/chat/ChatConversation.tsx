@@ -21,6 +21,8 @@ import { PromptInputBox } from "./PromptInputBox";
 import { MessageTypes } from "./MessageTypes";
 import { Suggestion, Suggestions } from "../ai-elements/suggestion";
 import { Loader } from "../ai-elements/loader";
+import { MotionDiv } from "../motion";
+import { VARIANTS_SECTION } from "../motion/constants";
 
 export function ChatConversation() {
   const [modelId, setModelId] = useState(DEFAULT_MODEL);
@@ -83,13 +85,13 @@ export function ChatConversation() {
     <>
       <Conversation className="relative w-full flex flex-col">
         {noMessage && (
-          <div className="flex flex-col justify-start items-start p-4 flex-1 mx-auto w-sm md:w-xl lg:w-4xl">
+          <MotionDiv className="flex flex-col justify-start items-start flex-1 mx-auto w-full max-w-sm md:max-w-xl lg:max-w-4xl">
             <h1 className="text-2xl font-bold font-sans w-full max-w-sm k">
               {session?.user.name && `Hello ${session?.user.name}`}
               <br />
               <span className="text-zinc-500">How can I help you?</span>
             </h1>
-          </div>
+          </MotionDiv>
         )}
 
         {!noMessage && (
@@ -124,7 +126,7 @@ export function ChatConversation() {
       </Conversation>
 
       {noMessage && (
-        <div className="mx-auto w-sm md:w-xl lg:w-4xl overflow-x-none">
+        <MotionDiv className="mx-auto w-sm md:w-xl lg:w-4xl overflow-x-none">
           <div className="grid grid-cols-2 gap-2">
             {SUGGESTIONS.map((suggestion) => (
               <Suggestion
@@ -135,7 +137,7 @@ export function ChatConversation() {
               />
             ))}
           </div>
-        </div>
+        </MotionDiv>
       )}
 
       <PromptInputBox
