@@ -4,7 +4,6 @@ import { DEFAULT_MODEL, SUGGESTIONS } from "@/ai/constants";
 import { toast } from "sonner";
 import { useChat } from "@ai-sdk/react";
 import React, { useEffect, useMemo, useState } from "react";
-import { LogoIpsum } from "../icons/logoipsum";
 import { useSession } from "../providers/session-provider";
 import { useMessageToken } from "@/hooks/use-message-token";
 import { encryptSessionToken, isEncryptedToken } from "@/lib/utils";
@@ -19,10 +18,9 @@ import { getSupportedModels } from "@/functions/models";
 import type { AvailableModel } from "@/types/models";
 import { PromptInputBox } from "./PromptInputBox";
 import { MessageTypes } from "./MessageTypes";
-import { Suggestion, Suggestions } from "../ai-elements/suggestion";
+import { Suggestion } from "../ai-elements/suggestion";
 import { Loader } from "../ai-elements/loader";
-import { MotionDiv } from "../motion";
-import { VARIANTS_SECTION } from "../motion/constants";
+import { MotionSection } from "../motion";
 
 export function ChatConversation() {
   const [modelId, setModelId] = useState(DEFAULT_MODEL);
@@ -85,13 +83,13 @@ export function ChatConversation() {
     <>
       <Conversation className="relative w-full flex flex-col">
         {noMessage && (
-          <MotionDiv className="flex flex-col justify-start items-start flex-1 mx-auto w-full max-w-sm md:max-w-xl lg:max-w-4xl">
+          <MotionSection className="flex flex-col justify-start items-start flex-1 mx-auto w-full max-w-sm md:max-w-xl lg:max-w-4xl">
             <h1 className="text-2xl font-bold font-sans w-full max-w-sm k">
               {session?.user.name && `Hello ${session?.user.name}`}
               <br />
               <span className="text-zinc-500">How can I help you?</span>
             </h1>
-          </MotionDiv>
+          </MotionSection>
         )}
 
         {!noMessage && (
@@ -126,18 +124,16 @@ export function ChatConversation() {
       </Conversation>
 
       {noMessage && (
-        <MotionDiv className="mx-auto w-sm md:w-xl lg:w-4xl overflow-x-none">
-          <div className="grid grid-cols-2 gap-2">
-            {SUGGESTIONS.map((suggestion) => (
-              <Suggestion
-                key={suggestion}
-                onClick={() => validateAndSubmitMessage(suggestion)}
-                suggestion={suggestion}
-                className="text-xs py-6 rounded-md !text-wrap border-border"
-              />
-            ))}
-          </div>
-        </MotionDiv>
+        <MotionSection className="mx-auto w-full max-w-sm md:max-w-xl lg:max-w-4xl overflow-x-none grid grid-cols-2 gap-2">
+          {SUGGESTIONS.map((suggestion) => (
+            <Suggestion
+              key={suggestion}
+              onClick={() => validateAndSubmitMessage(suggestion)}
+              suggestion={suggestion}
+              className="text-xs py-6 rounded-md !text-wrap border-border"
+            />
+          ))}
+        </MotionSection>
       )}
 
       <PromptInputBox
