@@ -81,7 +81,7 @@ export function ChatConversation() {
 
   return (
     <>
-      <Conversation className="flex flex-col flex-1 justify-center items-center overflow-hidden">
+      <Conversation className="relative w-full flex flex-col">
         {noMessage && (
           <div className="flex flex-col justify-start items-start p-4 flex-1 mx-auto w-sm md:w-xl lg:w-4xl">
             <h1 className="text-2xl font-bold font-sans w-full max-w-sm k">
@@ -94,7 +94,7 @@ export function ChatConversation() {
 
         {!noMessage && (
           <>
-            <ConversationContent className="flex-1 max-w-4xl mx-auto overflow-y-auto">
+            <ConversationContent className="mx-auto max-w-sm md:max-w-xl lg:max-w-4xl">
               {messages.map((message, messageIndex) => {
                 const isLastMessage = messageIndex === messages.length - 1;
                 return (
@@ -118,7 +118,7 @@ export function ChatConversation() {
                 );
               })}
             </ConversationContent>
-            <ConversationScrollButton />
+            <ConversationScrollButton className="bg-red-500" />
           </>
         )}
       </Conversation>
