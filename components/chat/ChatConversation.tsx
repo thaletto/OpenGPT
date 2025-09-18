@@ -2,7 +2,7 @@
 
 import { DEFAULT_MODEL, SUGGESTIONS } from "@/ai/constants";
 import { toast } from "sonner";
-import { useChat } from "@ai-sdk/react";
+import { useChat } from "@ai-sdk-tools/store";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSession } from "../providers/session-provider";
 import { useMessageToken } from "@/hooks/use-message-token";
