@@ -11,6 +11,7 @@ import { NextResponse } from "next/server";
 import { getAvailableModels, getModelOptions } from "@/ai/gateway";
 import { checkBotId } from "botid/server";
 import prompt from "@/ai/prompt.md";
+import { openai } from "@ai-sdk/openai";
 
 interface BodyData {
   messages: UIMessage[];
@@ -49,6 +50,11 @@ export async function POST(req: Request) {
           ...rest.anthropicProviderOptions,
           system: prompt,
           messages: convertToModelMessages(messages),
+          tools: {
+            web_search: openai.tools.webSearch({
+              searchContextSize: 'low'
+            })
+          },
           stopWhen: stepCountIs(20),
           onError: (error) => {
             console.error("Error communicating with AI");
