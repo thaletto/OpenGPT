@@ -12,6 +12,7 @@ import { getAvailableModels, getModelOptions } from "@/ai/gateway";
 import { checkBotId } from "botid/server";
 import prompt from "@/ai/prompt.md";
 import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 
 interface BodyData {
   messages: UIMessage[];
@@ -51,9 +52,11 @@ export async function POST(req: Request) {
           system: prompt,
           messages: convertToModelMessages(messages),
           tools: {
+            // google_search: google.tools.googleSearch({}),
             web_search: openai.tools.webSearch({
-              searchContextSize: 'low'
-            })
+              searchContextSize: 'medium'
+            }),
+            image_generation: openai.tools.imageGeneration({ outputFormat: 'webp' }),
           },
           stopWhen: stepCountIs(20),
           onError: (error) => {

@@ -9,7 +9,7 @@ export async function getAvailableModels(): Promise<AvailableModel[]> {
 }
 
 export function getModelOptions(modelId: string): ModelOptions {
-  if (modelId === "openai/o4-mini") {
+  if (modelId.startsWith('openai')) {
     return {
       model: modelId,
       openAIProviderOptions: {
@@ -18,16 +18,16 @@ export function getModelOptions(modelId: string): ModelOptions {
       },
     };
   }
-
-  if (modelId === "openai/gpt-5") {
+  if (modelId.startsWith('google')) {
     return {
       model: modelId,
-      openAIProviderOptions: {
-        include: ["reasoning.encrypted_content"],
-        reasoningEffort: "low",
-        reasoningSummary: "detailed",
-      },
-    };
+      googleProviderOptions: {
+        thinkingConfig: {
+          thinkingBudget: 8192,
+          includeThoughts: true
+        }
+      }
+    }
   }
 
   return {

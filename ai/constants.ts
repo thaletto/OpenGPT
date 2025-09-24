@@ -1,9 +1,13 @@
 import { type GatewayModelId } from "@ai-sdk/gateway";
 
-export const DEFAULT_MODEL: GatewayModelId[number] = "openai/gpt-5-mini";
+export const DEFAULT_MODEL: GatewayModelId[number] = "xai/grok-4-fast-reasoning";
 
 export const SUPPORTED_MODELS: GatewayModelId[] = [
+  "xai/grok-4-fast-reasoning",
+  "xai/grok-4-fast-non-reasoning",
+  "xai/grok-code-fast-1",
   "google/gemini-2.5-flash",
+  "google/gemini-2.5-flash-image-preview",
   "openai/gpt-5-mini",
   "openai/gpt-5-nano",
   "openai/gpt-oss-120b",
@@ -19,7 +23,7 @@ export const SUPPORTED_MODELS: GatewayModelId[] = [
 ];
 
 export const SUGGESTIONS = [
-  "Help me draft an email.",
-  "Suggest a diet plan for bodybuilding",
-  "Plan a short weekend activity.",
+  "What happened before big bang?",
+  "Why Trump is targeting India?",
+  "What's the weather?",
 ];
