@@ -11,8 +11,9 @@ export function NewChatButton({ className }: { className?: string }) {
       variant="ghost"
       className={cn("cursor-pointer", className)}
       onClick={dispatchNewChat}
+      aria-label="Start a new chat"
     >
-      <Plus /> <span className="hidden md:block">New Chat</span>
+      <Plus aria-hidden="true" /> <span className="hidden md:block">New Chat</span>
     </Button>
   );
 }

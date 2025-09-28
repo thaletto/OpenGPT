@@ -3,7 +3,7 @@
 # OpenGPT
 ***An Open Source ChatGPT Alternative***
 
-<img src="https://raw.githubusercontent.com/thaletto/thaletto/refs/heads/main/public/projects/opengpt.jpeg" width="100%" />
+<img src="https://raw.githubusercontent.com/thaletto/static/refs/heads/main/assets/opengpt.webp" width="100%" />
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/thaletto/opengpt?style=for-the-badge&logo=github)
 ![GitHub forks](https://img.shields.io/github/forks/thaletto/opengpt?style=for-the-badge&logo=github)

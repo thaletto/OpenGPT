@@ -41,15 +41,18 @@ export default async function Page() {
                 href="https://www.github.com/thaletto/OpenGPT"
                 about="Link to GitHub repository"
                 target="_blank"
+                aria-label="View the OpenGPT GitHub repository"
+                title="OpenGPT GitHub"
               >
-                <GithubIcon />
+                <GithubIcon aria-hidden="true" />
+                <span className="sr-only">GitHub</span>
               </Link>
             </Button>
 
             {!session?.session.token && (
               <Button type="button" variant="outline" asChild>
-                <Link href="/login">
-                  <LogIn />
+                <Link href="/login" aria-label="Login to your account">
+                  <LogIn aria-hidden="true" />
                   <span className="hidden md:block">Login</span>
                 </Link>
               </Button>

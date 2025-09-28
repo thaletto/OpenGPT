@@ -47,25 +47,49 @@ export function PromptInputBox({
         }}
       />
       <PromptInputToolbar className="border-t border-border">
-        <PromptInputModelSelect
-          value={modelId}
-          onValueChange={(value) => setModelId(value)}
-        >
-          <PromptInputModelSelectTrigger>
-            <PromptInputModelSelectValue placeholder={DEFAULT_MODEL} />
-          </PromptInputModelSelectTrigger>
-          <PromptInputModelSelectContent>
-            {models.map((model) => (
-              <PromptInputModelSelectItem key={model.id} value={model.id}>
-                {model.name}
-              </PromptInputModelSelectItem>
-            ))}
-          </PromptInputModelSelectContent>
-        </PromptInputModelSelect>
+        <div className="flex items-center gap-2">
+          <label
+            htmlFor="model-select"
+            className="sr-only"
+          >
+            Select AI Model
+          </label>
+          <PromptInputModelSelect
+            value={modelId}
+            onValueChange={(value) => setModelId(value)}
+          >
+            <PromptInputModelSelectTrigger
+              id="model-select"
+              aria-label="Select AI Model"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <PromptInputModelSelectValue placeholder={DEFAULT_MODEL} />
+            </PromptInputModelSelectTrigger>
+            <PromptInputModelSelectContent
+              role="listbox"
+              aria-label="AI Model Options"
+            >
+              {models.map((model) => (
+                <PromptInputModelSelectItem
+                  key={model.id}
+                  value={model.id}
+                  role="option"
+                  aria-selected={modelId === model.id}
+                >
+                  {model.name}
+                </PromptInputModelSelectItem>
+              ))}
+            </PromptInputModelSelectContent>
+          </PromptInputModelSelect>
+        </div>
         <PromptInputSubmit
           className="absolute right-1 bottom-1"
           disabled={false}
           status={status}
+          aria-label="Send message"
+          title="Send message"
+          tabIndex={0}
         />
       </PromptInputToolbar>
     </PromptInput>
