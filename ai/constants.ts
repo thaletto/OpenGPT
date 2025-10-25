@@ -1,6 +1,6 @@
 import { type GatewayModelId } from "@ai-sdk/gateway";
 
-export const DEFAULT_MODEL: GatewayModelId[number] = "xai/grok-4-fast-reasoning";
+export const DEFAULT_MODEL: GatewayModelId[number] = "openai/gpt-5-mini";
 
 export const SUPPORTED_MODELS: GatewayModelId[] = [
   "xai/grok-4-fast-reasoning",
