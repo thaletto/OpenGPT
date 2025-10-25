@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
 import { SessionProvider } from "@/components/providers/session-provider";
+import { Provider } from "@ai-sdk-tools/store";
 
 export default async function ChatLayout({
   children,
@@ -16,7 +17,9 @@ export default async function ChatLayout({
       <SidebarProvider defaultOpen={false}>
         <AppSidebar variant="sidebar" />
         <SidebarInset>
-          {children}
+          <Provider initialMessages={[]}>
+            {children}
+          </Provider>
         </SidebarInset>
       </SidebarProvider>
     </SessionProvider>
