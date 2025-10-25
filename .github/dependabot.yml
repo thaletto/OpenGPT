@@ -1,8 +1,19 @@
 version: 2
 updates:
-  # For Bun (uses package.json and bun.lockb, treat as npm ecosystem)
   - package-ecosystem: "npm"
-    directory: "/" # Root folder where package.json and bun.lockb are
+    directory: "/"
     schedule:
       interval: "weekly"
     target-branch: "development"
+    open-pull-requests-limit: 10
+    allow:
+      - dependency-type: "all"
+    auto-merge:
+      enabled: true
+      strategy: "squash"
+      allow:
+        - dependency-type: "direct"
+        - dependency-type: "indirect"
+      types:
+        - "patch"
+        - "minor"
