@@ -17,11 +17,11 @@
 ## About OpenGPT
 **OpenGPT** is an open-source alternative to ChatGPT, powered by the [AI SDK](https://ai-sdk.dev) and the [Vercel AI Gateway](https://vercel.com/ai-gateway).  
 
-It leverages **AI Elements**, **Streamdown**, and modern **Next.js 15** features like  
+It leverages **AI Elements**, **Streamdown**, and modern **Next.js 16** features like  
 **Server Functions** and **React Server Components (RSC)**.
 
 ## Features
-- Built with Next.js 15 (Server Functions + RSC)  
+- Built with Next.js 16 (Server Functions + RSC)  
 - Powered by Vercel AI SDK + AI Gateway  
 - AI Elements and Streamdown integration
 - Supports oAuth
