@@ -13,7 +13,7 @@
     "@ai-sdk/anthropic": "^2.0.37",
     "@ai-sdk/gateway": "2.0.1",
     "@ai-sdk/google": "^2.0.23",
-    "@ai-sdk/openai": "2.0.52",
+    "@ai-sdk/openai": "2.0.53",
     "@eslint/eslintrc": "^3.3.1",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.0.2",
